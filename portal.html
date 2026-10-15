@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>بوابات منصة قيمة | منظومة التشغيل المتكاملة</title>
+  <meta name="description" content="لوحات تحكم بوابات منصة قيمة: المورّد، المشتري، مدير السوق، وتقارير ESG">
+  
+  <!-- خط Cairo الرسمي -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- ملف التنسيقات -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="portal-layout">
+
+  <!-- شريط ملاحة البوابة -->
+  <header class="portal-nav">
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-badge" style="width: 42px; height: 42px; font-size: 1.3rem;">ق</div>
+        <div class="brand-text">
+          <h1 style="font-size: 1.25rem;">مَنَصَّة قِيمَة</h1>
+          <span style="font-size: 0.7rem;">بوابات التشغيل والحوكمة</span>
+        </div>
+      </a>
+      <span style="background: #e2e8f0; height: 24px; width: 1px;"></span>
+      <span style="font-weight: 700; color: var(--primary); font-size: 0.95rem;">
+        <i class="fas fa-shield-alt"></i> نظام إدارة وتداول الموارد الدائرية الموحد
+      </span>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <a href="index.html" class="btn btn-outline btn-sm">
+        <i class="fas fa-arrow-right"></i> العودة للموقع الرئيسي
+      </a>
+      <div style="display: flex; align-items: center; gap: 0.6rem; background: var(--gray-bg); padding: 0.35rem 0.85rem; border-radius: var(--radius-full); border: 1px solid var(--gray-border);">
+        <i class="fas fa-user-circle" style="font-size: 1.4rem; color: var(--primary);"></i>
+        <div style="font-size: 0.8rem; line-height: 1.2;">
+          <strong style="display: block; color: var(--dark);">المستخدم المعتمد</strong>
+          <span style="color: var(--gray-text);">نشط الآن</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- جسم البوابة: الشريط الجانبي ومحتوى التبويبات -->
+  <div class="portal-body">
+    <!-- الشريط الجانبي للبوابات الأربع -->
+    <aside class="portal-sidebar">
+      <div style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: #64748b; font-weight: 700; margin-bottom: 0.5rem;">
+        البوابات الرقمية المتاحة
+      </div>
+      
+      <div class="portal-tabs">
+        <button class="portal-tab-btn active" data-tab="supplier">
+          <i class="fas fa-truck-loading"></i>
+          <span>لوحة المورّد ومولّد الموارد</span>
+        </button>
+
+        <button class="portal-tab-btn" data-tab="buyer">
+          <i class="fas fa-industry"></i>
+          <span>لوحة المشتري ومصانع التدوير</span>
+        </button>
+
+        <button class="portal-tab-btn" data-tab="admin">
+          <i class="fas fa-chart-line"></i>
+          <span>لوحة التحكم (مدير السوق)</span>
+        </button>
+
+        <button class="portal-tab-btn" data-tab="esg">
+          <i class="fas fa-award"></i>
+          <span>لوحة الأثر وتقارير ESG</span>
+        </button>
+      </div>
+
+      <div style="margin-top: auto; padding-top: 2rem; border-top: 1px solid #334155;">
+        <div style="background: rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 1rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+          <div style="font-size: 0.8rem; color: var(--gold); font-weight: 700; margin-bottom: 0.3rem;">
+            <i class="fas fa-headset"></i> الدعم التشغيلي 24/7
+          </div>
+          <div style="font-size: 0.75rem; color: #94a3b8;">
+            المسار اللوجستي المباشر وغرفة عمليات الصفقات متصلة لحظياً.
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- مساحة المحتوى للتبويبات -->
+    <main class="portal-content">
+
+      <!-- ================= 1. لوحة المورّد ================= -->
+      <section class="tab-pane active" id="supplier-pane">
+        <div class="panel-header">
+          <div>
+            <h2>لوحة المورّد ومولّد الموارد</h2>
+            <p style="color: var(--gray-text); font-size: 0.95rem;">تسجيل الشحنات، تحديد نوع المورد، متابعة التسعير، وإدارة التحصيل والمبيعات.</p>
+          </div>
+          <a href="index.html#marketplace" class="btn btn-gold btn-sm">
+            <i class="fas fa-plus"></i> تسجيل شحنة جديدة
+          </a>
+        </div>
+
+        <div class="dashboard-stats-grid">
+          <div class="dash-stat-box">
+            <span class="title">إجمالي الموارد الموردة</span>
+            <div class="val">340 طن</div>
+            <span class="change" style="color: #16a34a;"><i class="fas fa-arrow-up"></i> +14% هذا الشهر</span>
+          </div>
+          <div class="dash-stat-box">
+            <span class="title">المبيعات المحققة</span>
+            <div class="val">312,400 ر.س</div>
+            <span class="change" style="color: #16a34a;"><i class="fas fa-check-double"></i> مسواة بالكامل</span>
+          </div>
+          <div class="dash-stat-box">
+            <span class="title">الشحنات قيد النقل والفرز</span>
+            <div class="val">4 شحنات</div>
+            <span class="change" style="color: var(--info);"><i class="fas fa-truck"></i> مع الشريك اللوجستي</span>
+          </div>
+          <div class="dash-stat-box">
+            <span class="title">متوسط سعر الطن المباع</span>
+            <div class="val">918 ر.س</div>
+            <span class="change" style="color: var(--gold-hover);"><i class="fas fa-chart-line"></i> وفق مؤشر قيمة</span>
+          </div>
+        </div>
+
+        <!-- جدول متابعة الشحنات المسجلة للمورد -->
+        <div class="table-card">
+          <div class="table-header">
+            <h3><i class="fas fa-list-check"></i> سجل الشحنات المرفوعة والعمليات الجارية</h3>
+            <span style="font-size: 0.85rem; color: var(--gray-text);">آخر تحديث: لحظي</span>
+          </div>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>رقم الشحنة</th>
+                <th>نوع المورد</th>
+                <th>الكمية</th>
+                <th>تاريخ الإدراج</th>
+                <th>السعر المتوقع</th>
+                <th>حالة العملية</th>
+                <th>المشتري المطابق</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>#SHP-7721</strong></td>
+                <td>كرتون مقوى مكبوس فرز أول</td>
+                <td>35 طن</td>
+                <td>14 أكتوبر 2026</td>
+                <td>23,800 ر.س</td>
+                <td><span class="badge-status success">تم التسليم للمصنع</span></td>
+                <td>شركة الورق الأهلية</td>
+              </tr>
+              <tr>
+                <td><strong>#SHP-7722</strong></td>
+                <td>بلاستيك HDPE شفاف حبيبات</td>
+                <td>18 طن</td>
+                <td>15 أكتوبر 2026</td>
+                <td>44,100 ر.س</td>
+                <td><span class="badge-status warning">جارٍ الفرز والنقل</span></td>
+                <td>مصنع اللدائن الحديث</td>
+              </tr>
+              <tr>
+                <td><strong>#SHP-7723</strong></td>
+                <td>خردة ألمنيوم مقاطع سحب</td>
+                <td>12 طن</td>
+                <td>15 أكتوبر 2026</td>
+                <td>82,800 ر.س</td>
+                <td><span class="badge-status info">في مرحلة الفحص والوزن</span></td>
+                <td>مسبك الشرق للصناعات</td>
+              </tr>
+              <tr>
+                <td><strong>#SHP-7724</strong></td>
+                <td>ألياف نسيج قطنية</td>
+                <td>25 طن</td>
+                <td>12 أكتوبر 2026</td>
+                <td>28,750 ر.س</td>
+                <td><span class="badge-status success">تم استلام المبلغ</span></td>
+                <td>مصنع العزل والنسيج</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= 2. لوحة المشتري ومصانع التدوير ================= -->
+      <section class="tab-pane" id="buyer-pane">
+        <div class="panel-header">
+          <div>
+            <h2>لوحة المشتري ومصانع التدوير</h2>
+            <p style="color: var(--gray-text); font-size: 0.95rem;">تصفح المواد الخام المتاحة، تقديم عروض الشراء، إدارة العقود، وجدولة التوريد لخطوط الإنتاج.</p>
+          </div>
+          <button class="btn btn-primary btn-sm" onclick="alert('تم تفعيل خدمة البحث الذكي عن شحنات المواد الخام المطلوبة.')">
+            <i class="fas fa-search"></i> طلب مواصفة توريد خاصة
+          </button>
+        </div>
+
+        <div class="dashboard-stats-grid">
+          <div class="dash-stat-box">
+            <span class="title">المواد الخام المستلمة هذا الربع</span>
+            <div class="val">850 طن</div>
+            <span class="change" style="color: #16a34a;">تغذية مستمرة للإنتاج</span>
+          </div>
+          <div class="dash-stat-box">
+            <span class="title">العقود النشطة الحالية</span>
+            <div class="val">6 عقود</div>
+            <span class="change" style="color: var(--info);">عقود توريد شهرية وسنوية</span>
+          </div>
+          <div class="dash-stat-box">
+            <span class="title">توفير تكلفة الشراء مقارنة بالسوق التقليدي</span>
+            <div class="val">18.5%</div>
+            <span class="change" style="color: var(--gold-hover);">بفضل إلغاء السماسرة</span>
+          </div>
+          <div class="dash-stat-box">
+            <span class="title">شهادات التدوير الصادرة</span>
+            <div class="val">14 شهادة</div>
+            <span class="change" style="color: #16a34a;">معتمدة لتقارير ESG</span>
+          </div>
+        </div>
+
+        <!-- جدول الصفقات المتاحة للشراء وتقديم العروض -->
+        <div class="table-card">
+          <div class="table-header">
+            <h3><i class="fas fa-cart-flatbed"></i> شحنات وموارد معتمدة جاهزة للتعاقد والشراء الفوري</h3>
+            <span style="font-size: 0.85rem; color: var(--gray-text);">مفحوصة بواسطة منصة قيمة</span>
+          </div>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>رقم الحصة</th>
+                <th>نوع المادة الخام</th>
+                <th>الكمية المتاحة</th>
+                <th>الموقع الحالي</th>
+                <th>سعر المؤشر المعتمد</th>
+                <th>نسبة النقاوة</th>
+                <th>الإجراء</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>LOT-9821</strong></td>
+                <td>كرتون مقوى وفرز أول مضغوط</td>
+                <td>45 طن</td>
+                <td>الرياض - مستودعات السلي</td>
+                <td>680 ر.س / طن</td>
+                <td>درجة A+</td>
+                <td>
+                  <button class="btn btn-primary btn-sm" onclick="alert('تم إرسال عرض الشراء المباشر للحصة LOT-9821 إلى مدير السوق للاعتماد.')">
+                    شراء الحصة
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>LOT-9822</strong></td>
+                <td>بلاستيك HDPE حبيبات شفاف مغسول</td>
+                <td>20 طن</td>
+                <td>جدة - المدينة الصناعية 1</td>
+                <td>2,450 ر.س / طن</td>
+                <td>صناعي نقي 100%</td>
+                <td>
+                  <button class="btn btn-primary btn-sm" onclick="alert('تم إرسال عرض الشراء المباشر للحصة LOT-9822 إلى مدير السوق للاعتماد.')">
+                    شراء الحصة
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>LOT-9823</strong></td>
+                <td>خردة ألمنيوم مقاطع وبروفيل</td>
+                <td>15 طن</td>
+                <td>الدمام - الخالدية</td>
+                <td>6,900 ر.س / طن</td>
+                <td>نقاء 98%</td>
+                <td>
+                  <button class="btn btn-primary btn-sm" onclick="alert('تم إرسال عرض الشراء المباشر للحصة LOT-9823 إلى مدير السوق للاعتماد.')">
+                    شراء الحصة
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>LOT-9826</strong></td>
+                <td>بلاستيك PET عبوات مياه مفروزة</td>
+                <td>60 طن</td>
+                <td>مكة المكرمة - الشميسي</td>
+                <td>1,850 ر.س / طن</td>
+                <td>مكبوس شفاف</td>
+                <td>
+                  <button class="btn btn-primary btn-sm" onclick="alert('تم إرسال عرض الشراء المباشر للحصة LOT-9826 إلى مدير السوق للاعتماد.')">
+                    شراء الحصة
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= 3. لوحة الإدارة والتحكم (مدير السوق) ================= -->
+      <section class="tab-pane" id="admin-pane">
+        <div class="panel-header">
+          <div>
+            <h2>لوحة الإدارة والتحكم (مدير السوق)</h2>
+            <p style="color: var(--gray-text); font-size: 0.95rem;">مؤشرات الأداء، عمولات الصفقات المنفذة، إدارة المستخدمين والناقلين والتحكم في مؤشر الأسعار.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="btn btn-gold btn-sm" onclick="alert('تم تحديث أسعار مؤشر قيمة اللحظي بناءً على حركة التداول العالمية والمحلية.')">
+              <i class="fas fa-arrows-rotate"></i> تحديث مؤشر الأسعار
+            </button>
+          </div>
+        </div>
+
+        <div class="dashboard-stats-grid">
+          <div class="dash-stat-box">
+            <span class="title">إجمالي حجم تداول المنصة (GMV)</span>
+            <div class="val">2,410,000 ر.س</div>
+            <span class="change" style="color: #16a34a;"><i class="fas fa-chart-line"></i> نمو 22% شهرياً</span>
+          </div>
+          <div class="dash-stat-box">
+            <span class="title">عمولات منصة قيمة المحصلة</span>
+            <div class="val">241,000 ر.س</div>
+            <span class="change" style="color: var(--gold-hover);">متوسط عمولة 10%</span>
+          </div>
+          <div class="dash-stat-box">
+            <span class="title">الناقلون اللوجستيون المعتمدون</span>
+            <div class="val">42 شاحنة / شريك</div>
+            <span class="change" style="color: var(--info);">تغطية 4 مدن رئيسية</span>
+          </div>
+          <div class="dash-stat-box">
+            <span class="title">نسبة إتمام الصفقات بنجاح</span>
+            <div class="val">99.2%</div>
+            <span class="change" style="color: #16a34a;">حوكمة وضمان مالي</span>
+          </div>
+        </div>
+
+        <!-- جدول إدارة العمليات والاعتماد اللوجستي لمدير السوق -->
+        <div class="table-card">
+          <div class="table-header">
+            <h3><i class="fas fa-sliders"></i> إدارة تدفق الصفقات والاعتماد اللوجستي الفوري</h3>
+            <span style="font-size: 0.85rem; color: var(--gray-text);">تحكم الإدارة المركزي</span>
+          </div>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>معرف الصفقة</th>
+                <th>طرف العرض (المورد)</th>
+                <th>طرف الطلب (المصنع)</th>
+                <th>المادة والكمية</th>
+                <th>قيمة الصفقة</th>
+                <th>عمولة قيمة (10%)</th>
+                <th>الحالة التشغيلية</th>
+                <th>الإجراء</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>#TRD-401</strong></td>
+                <td>شركة الأفق اللوجستية</td>
+                <td>مصنع تدوير الورق السعودي</td>
+                <td>كرتون (45 طن)</td>
+                <td>30,600 ر.س</td>
+                <td><strong style="color: var(--primary);">3,060 ر.س</strong></td>
+                <td><span class="badge-status warning" id="status-TRD-401">في انتظار تعيين الناقل</span></td>
+                <td>
+                  <button class="btn btn-primary btn-sm" onclick="approveOrder('TRD-401')">اعتماد وتعيين ناقل</button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>#TRD-402</strong></td>
+                <td>مؤسسة التدوير الحديث</td>
+                <td>شركة الصناعات البلاستيكية</td>
+                <td>HDPE (20 طن)</td>
+                <td>49,000 ر.س</td>
+                <td><strong style="color: var(--primary);">4,900 ر.س</strong></td>
+                <td><span class="badge-status success" id="status-TRD-402">تم التعيين والشحن</span></td>
+                <td>
+                  <button class="btn btn-outline btn-sm" onclick="alert('الشاحنة في طريقها للوزن النهائي، تتبع المسار متاح.')">تتبع</button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>#TRD-403</strong></td>
+                <td>ورش المعادن المتحدة</td>
+                <td>مصهر الخليج للألمنيوم</td>
+                <td>ألمنيوم (15 طن)</td>
+                <td>103,500 ر.س</td>
+                <td><strong style="color: var(--primary);">10,350 ر.س</strong></td>
+                <td><span class="badge-status success" id="status-TRD-403">مكتملة ومحولة مالياً</span></td>
+                <td>
+                  <button class="btn btn-outline btn-sm" onclick="alert('تمت التسوية المالية وإصدار الفاتورة الضريبية.')">الفاتورة</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ================= 4. لوحة الأثر والـ ESG ================= -->
+      <section class="tab-pane" id="esg-pane">
+        <div class="panel-header">
+          <div>
+            <h2>لوحة الأثر وتقارير الاستدامة والحوكمة (ESG)</h2>
+            <p style="color: var(--gray-text); font-size: 0.95rem;">استعراض وتوليد شهادات وتقارير الاستدامة الرسمية للمنشآت الشريكة للمطابقة مع متطلبات رؤية 2030.</p>
+          </div>
+          <button class="btn btn-gold btn-sm" onclick="generateEsgReport('المنشأة النموذجية الشريكة')">
+            <i class="fas fa-file-pdf"></i> إصدار شهادة مطابقة فورية (ESG)
+          </button>
+        </div>
+
+        <div class="dashboard-stats-grid">
+          <div class="dash-stat-box">
+            <span class="title">إجمالي خفض الكربون الموثق</span>
+            <div class="val">22,300 طن</div>
+            <span class="change" style="color: #16a34a;"><i class="fas fa-leaf"></i> مكافئ CO2</span>
+          </div>
+          <div class="dash-stat-box">
+            <span class="title">نسبة تحويل النفايات عن المرادم</span>
+            <div class="val">88.4%</div>
+            <span class="change" style="color: #16a34a;">متوافق مع مستهدف موان</span>
+          </div>
+          <div class="dash-stat-box">
+            <span class="title">الشهادات البيئية الصادرة</span>
+            <div class="val">340 شهادة</div>
+            <span class="change" style="color: var(--primary-light);">موثقة بـ QR كود</span>
+          </div>
+          <div class="dash-stat-box">
+            <span class="title">تقييم الامتثال البيئي الشامل</span>
+            <div class="val">امتياز (A+)</div>
+            <span class="change" style="color: var(--gold-hover);">معايير GRI العالمية</span>
+          </div>
+        </div>
+
+        <!-- قسم تقارير الشركات والشهادات المعتمدة -->
+        <div class="table-card">
+          <div class="table-header">
+            <h3><i class="fas fa-certificate"></i> سجل شهادات التدوير الرسمية المعتمدة للمنشآت</h3>
+            <span style="font-size: 0.85rem; color: var(--gray-text);">جاهزة للتحميل وتقديمها للجهات التنظيمية</span>
+          </div>
+          <table class="custom-table">
+            <thead>
+              <tr>
+                <th>رقم الشهادة</th>
+                <th>اسم المنشأة المستفيدة</th>
+                <th>المورد المدور</th>
+                <th>الكمية المعتمدة</th>
+                <th>خفض انبعاثات الكربون</th>
+                <th>تاريخ الاعتماد</th>
+                <th>إجراءات التقرير</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>ESG-2026-081</strong></td>
+                <td>شركة الأفق للخدمات اللوجستية</td>
+                <td>كرتون وبلاستيك</td>
+                <td>120 طن</td>
+                <td>180 طن CO2e</td>
+                <td>أكتوبر 2026</td>
+                <td>
+                  <button class="btn btn-outline btn-sm" onclick="generateEsgReport('شركة الأفق للخدمات اللوجستية')">
+                    <i class="fas fa-download"></i> تحميل الشهادة
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>ESG-2026-082</strong></td>
+                <td>مجمع الرياض التجاري</td>
+                <td>ورق ومواد تغليف</td>
+                <td>85 طن</td>
+                <td>127 طن CO2e</td>
+                <td>أكتوبر 2026</td>
+                <td>
+                  <button class="btn btn-outline btn-sm" onclick="generateEsgReport('مجمع الرياض التجاري')">
+                    <i class="fas fa-download"></i> تحميل الشهادة
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><strong>ESG-2026-083</strong></td>
+                <td>مصنع الشرق للألمنيوم</td>
+                <td>معادن وخردة صناعية</td>
+                <td>210 طن</td>
+                <td>420 طن CO2e</td>
+                <td>سبتمبر 2026</td>
+                <td>
+                  <button class="btn btn-outline btn-sm" onclick="generateEsgReport('مصنع الشرق للألمنيوم')">
+                    <i class="fas fa-download"></i> تحميل الشهادة
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ملف الجافاسكريبت الرئيسي -->
+  <script src="js/main.js"></script>
+</body>
+</html>

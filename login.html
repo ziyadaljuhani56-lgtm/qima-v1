@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تسجيل الدخول | منصة قيمة</title>
+  <meta name="description" content="تسجيل الدخول إلى حسابك في منصة قيمة لعرض مواردك ومتابعة طلبات التسعير في سوق واحد.">
+  <link rel="icon" type="image/png" href="images/logo.png">
+
+  <!-- خط Cairo الرسمي -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+
+  <div class="auth-wrapper">
+    <!-- الجانب الأيمن: نموذج تسجيل الدخول الأبيض -->
+    <div class="auth-form-side">
+      <!-- شريط علوي مع العودة للرئيسية والشعار -->
+      <div class="auth-top-nav">
+        <a href="index.html" class="auth-back-link">
+          <i class="fas fa-arrow-right"></i> العودة للرئيسية
+        </a>
+
+        <a href="index.html" class="auth-logo-brand">
+          <div class="logo-text-wrap" style="text-align: right;">
+            <h2 style="font-size: 1.6rem; font-weight: 900; color: var(--primary-green); line-height: 1;">قيمة</h2>
+            <span style="font-size: 0.68rem; color: var(--text-muted); font-weight: 600;">كل مورد.. له قيمة</span>
+          </div>
+          <img src="images/logo.png" alt="شعار منصة قيمة" class="logo-img-tag" style="width: 38px; height: 38px;">
+        </a>
+      </div>
+
+      <!-- محتوى نموذج تسجيل الدخول -->
+      <div class="auth-content-box">
+        <div class="auth-tag">
+          <span class="dot"></span> المنصة الرقمية للاقتصاد الدائري
+        </div>
+
+        <h1 class="auth-heading">
+          أهلاً بعودتك<br>
+          سجّل دخولك.
+        </h1>
+
+        <p class="auth-subheading">
+          ادخل إلى حسابك لعرض مواردك ومتابعة طلبات التسعير في سوق واحد.
+        </p>
+
+        <form class="auth-form" id="loginForm" onsubmit="event.preventDefault(); window.location.href='admin.html';">
+          <div class="form-field-group">
+            <label for="loginEmail">البريد الإلكتروني أو رقم الجوال</label>
+            <div class="input-with-icon">
+              <input type="text" id="loginEmail" placeholder="name@company.com أو 05xxxxxxxx" required value="admin@qima.sa">
+              <i class="far fa-envelope input-icon-end"></i>
+            </div>
+          </div>
+
+          <div class="form-field-group">
+            <div class="form-label-row">
+              <label for="loginPassword">كلمة المرور</label>
+              <a href="#" class="forgot-pwd-link" onclick="alert('يرجى مراجعة البريد الإلكتروني أو التواصل مع الدعم الفني لاستعادة كلمة المرور.')">نسيت كلمة المرور؟</a>
+            </div>
+            <div class="input-with-icon">
+              <input type="password" id="loginPassword" placeholder="••••••••" required value="••••••••">
+              <i class="far fa-eye input-icon-end" id="togglePassword"></i>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-auth-submit">
+            تسجيل الدخول <i class="fas fa-arrow-left"></i>
+          </button>
+        </form>
+
+        <div class="auth-bottom-switch">
+          ليس لديك حساب؟ <a href="register.html">انضم للمنصة</a>
+        </div>
+      </div>
+
+      <!-- تذييل الأمان والثقة في أسفل النموذج -->
+      <div class="auth-footer-trust">
+        <i class="fas fa-shield-alt"></i> منظومة موثوقة ومستدامة للشركات والأفراد والجهات
+      </div>
+    </div>
+
+    <!-- الجانب الأيسر: الصورة الحقيقية مع البطاقة العائمة والتلاشي الضوئي -->
+    <div class="auth-visual-side">
+      <img src="images/hero.jpg" alt="مستودع إعادة التدوير" class="auth-visual-img-bg">
+      <div class="auth-visual-overlay-login"></div>
+
+      <!-- البطاقة العائمة أسفل يسار الصورة -->
+      <div class="hero-floating-card" style="position: relative; bottom: auto; left: auto; right: auto; z-index: 3; align-self: flex-start; max-width: 320px;">
+        <div class="floating-card-icon">
+          <i class="fas fa-recycle"></i>
+        </div>
+        <div class="floating-card-text">
+          <h4>دورة جديدة.. قيمة متجددة.</h4>
+          <p>موارد اليوم، أساس اقتصاد الغد</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // إظهار وإخفاء كلمة المرور
+    const togglePwd = document.getElementById('togglePassword');
+    const pwdInput = document.getElementById('loginPassword');
+    if (togglePwd && pwdInput) {
+      togglePwd.addEventListener('click', () => {
+        const type = pwdInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        pwdInput.setAttribute('type', type);
+        togglePwd.classList.toggle('fa-eye');
+        togglePwd.classList.toggle('fa-eye-slash');
+      });
+    }
+  </script>
+</body>
+</html>
