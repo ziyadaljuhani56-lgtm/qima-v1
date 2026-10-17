@@ -108,4 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
+  // Mobile Menu Toggle
+  const mobileToggle = document.querySelector('.mobile-menu-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('mobile-open');
+    });
+  }
+
 });

@@ -57,33 +57,33 @@
         <div class="form-field-group">
           <label style="margin-bottom: 0.4rem;">نوع الحساب</label>
           <div class="account-type-grid">
-            <!-- 1. شريك لوجستي -->
-            <div class="account-type-card active" data-type="partner" onclick="selectAccountType(this)">
+            <!-- 1. مورد (محدد افتراضياً في التصميم الأصلي) -->
+            <div class="account-type-card active" data-type="supplier" onclick="selectAccountType(this)">
               <i class="fas fa-check-circle card-check-icon"></i>
-              <div class="account-type-icon"><i class="fas fa-truck"></i></div>
-              <h5>شريك لوجستي</h5>
-              <span>ناقلون وشركات نقل</span>
+              <div class="account-type-icon"><i class="fas fa-boxes-stacked"></i></div>
+              <h5>مورد</h5>
+              <span>شركات، أفراد، جهات</span>
             </div>
 
-            <!-- 2. مشتري -->
+            <!-- 2. مشترٍ -->
             <div class="account-type-card" data-type="buyer" onclick="selectAccountType(this)">
               <i class="fas fa-check-circle card-check-icon"></i>
-              <div class="account-type-icon"><i class="fas fa-industry"></i></div>
+              <div class="account-type-icon"><i class="fas fa-recycle"></i></div>
               <h5>مشترٍ</h5>
               <span>مصانع إعادة التدوير</span>
             </div>
 
-            <!-- 3. مورد -->
-            <div class="account-type-card" data-type="supplier" onclick="selectAccountType(this)">
+            <!-- 3. شريك لوجستي -->
+            <div class="account-type-card" data-type="partner" onclick="selectAccountType(this)">
               <i class="fas fa-check-circle card-check-icon"></i>
-              <div class="account-type-icon"><i class="fas fa-box"></i></div>
-              <h5>مورد</h5>
-              <span>شركات، أفراد، جهات</span>
+              <div class="account-type-icon"><i class="fas fa-truck-fast"></i></div>
+              <h5>شريك لوجستي</h5>
+              <span>ناقلون وشركات نقل</span>
             </div>
           </div>
         </div>
 
-        <form class="auth-form" id="registerForm" onsubmit="event.preventDefault(); alert('تم إنشاء حسابك بنجاح في منصة قيمة!'); window.location.href='admin.html';">
+        <form class="auth-form" id="registerForm" onsubmit="event.preventDefault(); alert('تم إنشاء حسابك بنجاح في منصة قيمة!'); window.location.href='supplier-dashboard.html';">
           <!-- الاسم الكامل أو اسم الجهة -->
           <div class="form-field-group">
             <label for="regFullName">الاسم الكامل أو اسم الجهة</label>

@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة المورد | منصة قيمة</title>
+  <meta name="description" content="لوحة المورد - نظرة عامة على مواردك وطلبات التسعير والأثر المتحقق في منصة قيمة.">
+  <link rel="icon" type="image/png" href="images/logo.png">
+
+  <!-- خط Cairo الرسمي -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <style>
+    /* أنماط وتفاصيل لوحة المورد المطابقة لـ Page 3 */
+    .supplier-dashboard-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    
+    .breadcrumb-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #3b8252;
+      margin-bottom: 0.25rem;
+    }
+    .breadcrumb-tag .dot {
+      width: 7px;
+      height: 7px;
+      background-color: #407b4f;
+      border-radius: 50%;
+    }
+
+    .supplier-header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .supplier-header-title h2 {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #173822;
+      line-height: 1.2;
+    }
+
+    .supplier-header-title p {
+      font-size: 0.95rem;
+      color: #63776b;
+      margin-top: 0.2rem;
+    }
+
+    .btn-create-request {
+      background-color: #235836;
+      color: #ffffff;
+      padding: 0.75rem 1.6rem;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(35, 88, 54, 0.2);
+      transition: all 0.2s ease;
+    }
+    .btn-create-request:hover {
+      background-color: #1a4229;
+      transform: translateY(-1px);
+    }
+
+    /* كروت الإحصائيات الأربعة العلوية */
+    .kpi-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.15rem;
+    }
+
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid #e5ede7;
+      border-radius: 12px;
+      padding: 1.25rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .kpi-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .kpi-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #5c7263;
+    }
+
+    .kpi-icon {
+      color: #8fa797;
+      font-size: 1.05rem;
+    }
+
+    .kpi-value-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.4rem;
+      margin-bottom: 0.35rem;
+    }
+
+    .kpi-num {
+      font-size: 2.1rem;
+      font-weight: 900;
+      color: #173822;
+      line-height: 1;
+    }
+
+    .kpi-unit {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #526658;
+    }
+
+    .kpi-subnote {
+      font-size: 0.78rem;
+      color: #799081;
+      font-weight: 600;
+    }
+    .kpi-subnote.positive {
+      color: #2b7a46;
+    }
+
+    /* الصف الأوسط: طلبات التسعير الأخيرة وعروض الأسعار الواردة */
+    .two-panels-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1.2fr;
+      gap: 1.25rem;
+    }
+
+    .panel-box {
+      background: #ffffff;
+      border: 1px solid #e5ede7;
+      border-radius: 12px;
+      padding: 1.4rem;
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .panel-head h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #173822;
+    }
+
+    .panel-link {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #2e6942;
+      cursor: pointer;
+    }
+
+    /* جدول طلبات التسعير */
+    .supplier-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+    }
+
+    .supplier-table th {
+      padding: 0.65rem 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #81988a;
+      border-bottom: 1px solid #edf3ee;
+    }
+
+    .supplier-table td {
+      padding: 0.85rem 0.5rem;
+      font-size: 0.88rem;
+      color: #2a3d31;
+      border-bottom: 1px solid #f2f7f3;
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 0.2rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .badge-pricing { background: #fff8eb; color: #b45309; }
+    .badge-bids { background: #eff6ff; color: #1d4ed8; }
+    .badge-transit { background: #f0fdf4; color: #15803d; }
+    .badge-completed { background: #f1f5f9; color: #475569; }
+
+    /* عروض الأسعار الواردة */
+    .quote-bids-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .quote-bid-card {
+      border: 1px solid #e8f0eb;
+      background: #fbfdfb;
+      border-radius: 8px;
+      padding: 0.9rem 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .quote-bid-info {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .quote-bid-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 8px;
+      background: #eaf3ed;
+      color: #235836;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    .quote-bid-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #173822;
+    }
+
+    .quote-bid-sub {
+      font-size: 0.76rem;
+      color: #748c7e;
+      margin-top: 0.15rem;
+    }
+
+    .quote-bid-price {
+      text-align: left;
+    }
+    .quote-bid-price .amount {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: #173822;
+    }
+    .quote-bid-price .currency {
+      font-size: 0.72rem;
+      color: #748c7e;
+      font-weight: 700;
+    }
+
+    .btn-compare-quotes {
+      width: 100%;
+      border: 1px solid #d3e2d7;
+      background: #ffffff;
+      color: #235836;
+      padding: 0.65rem;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      cursor: pointer;
+      margin-top: 0.85rem;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    .btn-compare-quotes:hover {
+      background: #f1f7f3;
+    }
+
+    /* رحلة الطلب Step Bar */
+    .order-journey-panel {
+      background: #ffffff;
+      border: 1px solid #e5ede7;
+      border-radius: 12px;
+      padding: 1.4rem;
+    }
+
+    .journey-stepper {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      position: relative;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .journey-stepper::before {
+      content: '';
+      position: absolute;
+      top: 16px;
+      right: 10%;
+      left: 10%;
+      height: 3px;
+      background: #e2ede5;
+      z-index: 1;
+    }
+
+    .journey-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #ccdcd0;
+      color: #8fa797;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .journey-step.done .step-circle {
+      background: #235836;
+      border-color: #235836;
+      color: #ffffff;
+    }
+
+    .journey-step.active .step-circle {
+      background: #ffffff;
+      border: 3px solid #235836;
+      color: #235836;
+    }
+
+    .step-title {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #173822;
+      margin-bottom: 0.15rem;
+    }
+
+    .step-desc {
+      font-size: 0.75rem;
+      color: #7b9485;
+    }
+
+    /* مركز الأثر والتقرير البيئي والتوزيع الشهري */
+    .impact-bottom-grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1.7fr;
+      gap: 1.25rem;
+    }
+
+    .impact-metrics-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.8rem;
+      margin-bottom: 1.25rem;
+      background: #f7faf8;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .impact-metric-box .val {
+      font-size: 1.55rem;
+      font-weight: 900;
+      color: #173822;
+      line-height: 1;
+    }
+    .impact-metric-box .lbl {
+      font-size: 0.72rem;
+      color: #6d8577;
+      font-weight: 700;
+      margin-top: 0.3rem;
+    }
+
+    .resource-dist-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .dist-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .dist-bar-name {
+      width: 85px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #3b5043;
+    }
+    .dist-bar-track {
+      flex: 1;
+      height: 8px;
+      background: #edf3ee;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .dist-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: #235836;
+    }
+    .dist-bar-percent {
+      width: 35px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #173822;
+      text-align: left;
+    }
+
+    /* رسم الأعمدة البياني البسيط بالـ CSS */
+    .bar-chart-container {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 150px;
+      padding-top: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #edf3ee;
+    }
+
+    .chart-bar-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      width: 12%;
+    }
+
+    .bar-pill {
+      width: 100%;
+      background: #8ec39e;
+      border-radius: 6px 6px 0 0;
+      transition: all 0.3s ease;
+    }
+    .chart-bar-col:last-child .bar-pill {
+      background: #235836;
+    }
+
+    .bar-val {
+      font-size: 0.75rem;
+      font-weight: 800;
+      color: #173822;
+    }
+
+    .bar-month {
+      font-size: 0.75rem;
+      color: #799081;
+      font-weight: 700;
+    }
+
+    .demo-data-notice {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #9cb1a3;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body class="admin-layout">
+
+  <!-- الشريط الجانبي للمورد -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="images/logo.png" alt="شعار قيمة" style="width: 36px; height: 36px;">
+      <div class="logo-text-wrap">
+        <h3 style="font-size: 1.35rem; font-weight: 900; color: var(--primary-green); line-height: 1;">قيمة</h3>
+        <span style="font-size: 0.65rem; color: var(--text-muted); font-weight: 600;">كل مورد.. له قيمة</span>
+      </div>
+    </div>
+
+    <div class="sidebar-menu">
+      <div class="sidebar-item active">
+        <i class="fas fa-table-cells-large"></i>
+        <span>لوحة التحكم</span>
+      </div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-file-lines"></i>
+        <span>طلباتي</span>
+      </div>
+
+      <div class="sidebar-item" onclick="openNewRequestModal()">
+        <i class="fas fa-plus-circle"></i>
+        <span>رفع طلب جديد</span>
+      </div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-tags"></i>
+        <span>عروض الأسعار</span>
+        <span class="sidebar-badge">5</span>
+      </div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-store"></i>
+        <span>سوق الموارد</span>
+      </div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-file-contract"></i>
+        <span>العقود</span>
+      </div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-leaf"></i>
+        <span>مركز الأثر</span>
+      </div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-chart-column"></i>
+        <span>التقارير</span>
+      </div>
+
+      <div style="margin-top: 2rem;" class="sidebar-section-title">النظام</div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-gear"></i>
+        <span>الإعدادات</span>
+      </div>
+
+      <a href="login.html" class="sidebar-item" style="color: #c53030;">
+        <i class="fas fa-arrow-right-from-bracket" style="color: #c53030;"></i>
+        <span>تسجيل الخروج</span>
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="admin-user-info">
+        <div class="admin-avatar" style="background-color: #235836; color: #fff;">
+          <i class="fas fa-building"></i>
+        </div>
+        <div class="admin-names">
+          <h5>حسابي</h5>
+          <span>حساب مورد</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- مساحة العمل الرئيسية -->
+  <main class="admin-main">
+    <!-- الشريط العلوي -->
+    <header class="admin-topbar">
+      <div class="admin-search-box">
+        <input type="text" placeholder="ابحث برقم الطلب أو نوع المورد...">
+        <i class="fas fa-search"></i>
+      </div>
+
+      <div class="topbar-actions">
+        <a href="marketplace.html" class="btn-outline-white-card" style="padding: 0.5rem 1rem; font-size: 0.85rem;">
+          <i class="fas fa-store"></i> استعراض السوق
+        </a>
+        <button class="btn-create-request" onclick="openNewRequestModal()">
+          <i class="fas fa-plus"></i> رفع طلب جديد
+        </button>
+      </div>
+    </header>
+
+    <!-- محتوى الصفحة -->
+    <div class="admin-content-body">
+      <div class="supplier-dashboard-wrap">
+        
+        <!-- الترويسة والترحيب -->
+        <div class="supplier-header-flex">
+          <div class="supplier-header-title">
+            <div class="breadcrumb-tag">
+              <span class="dot"></span> لوحة المورد
+            </div>
+            <h2>مرحباً بك في قيمة</h2>
+            <p>نظرة عامة على مواردك وطلبات التسعير والأثر المتحقق.</p>
+          </div>
+
+          <button class="btn-create-request" onclick="openNewRequestModal()">
+            <i class="fas fa-plus"></i> رفع طلب جديد
+          </button>
+        </div>
+
+        <!-- 4 بطاقات إحصائيات KPI -->
+        <div class="kpi-cards-grid">
+          <!-- 1. الطلبات النشطة -->
+          <div class="kpi-card">
+            <div class="kpi-top-row">
+              <span class="kpi-title">الطلبات النشطة</span>
+              <i class="fas fa-list-check kpi-icon"></i>
+            </div>
+            <div class="kpi-value-row">
+              <span class="kpi-num">8</span>
+            </div>
+            <div class="kpi-subnote">3 منها قيد التسعير</div>
+          </div>
+
+          <!-- 2. عروض أسعار واردة -->
+          <div class="kpi-card">
+            <div class="kpi-top-row">
+              <span class="kpi-title">عروض أسعار واردة</span>
+              <i class="fas fa-comment-dollar kpi-icon"></i>
+            </div>
+            <div class="kpi-value-row">
+              <span class="kpi-num">5</span>
+            </div>
+            <div class="kpi-subnote">عرضان جديدان اليوم</div>
+          </div>
+
+          <!-- 3. إجمالي العوائد -->
+          <div class="kpi-card">
+            <div class="kpi-top-row">
+              <span class="kpi-title">إجمالي العوائد</span>
+              <i class="fas fa-chart-line kpi-icon"></i>
+            </div>
+            <div class="kpi-value-row">
+              <span class="kpi-num">42,650</span>
+              <span class="kpi-unit">ر.س</span>
+            </div>
+            <div class="kpi-subnote positive">+12% عن الشهر الماضي</div>
+          </div>
+
+          <!-- 4. الموارد المُدوَّرة -->
+          <div class="kpi-card">
+            <div class="kpi-top-row">
+              <span class="kpi-title">الموارد المُدوَّرة</span>
+              <i class="fas fa-leaf kpi-icon"></i>
+            </div>
+            <div class="kpi-value-row">
+              <span class="kpi-num">18.4</span>
+              <span class="kpi-unit">طن</span>
+            </div>
+            <div class="kpi-subnote positive">+4.4 طن هذا الشهر</div>
+          </div>
+        </div>
+
+        <!-- لوحتان: طلبات التسعير الأخيرة وعروض الأسعار -->
+        <div class="two-panels-grid">
+          <!-- طلبات التسعير الأخيرة -->
+          <div class="panel-box">
+            <div class="panel-head">
+              <h3>طلبات التسعير الأخيرة</h3>
+              <span class="panel-link">عرض كل الطلبات</span>
+            </div>
+
+            <table class="supplier-table">
+              <thead>
+                <tr>
+                  <th>رقم الطلب</th>
+                  <th>نوع الموارد</th>
+                  <th>الكمية</th>
+                  <th>الحالة</th>
+                  <th>التاريخ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>QM-1042</strong></td>
+                  <td>كرتون وورق</td>
+                  <td>2.4 طن</td>
+                  <td><span class="badge-status badge-pricing">قيد التسعير</span></td>
+                  <td>12 أكتوبر</td>
+                </tr>
+                <tr>
+                  <td><strong>QM-1038</strong></td>
+                  <td>بلاستيك</td>
+                  <td>1.8 طن</td>
+                  <td><span class="badge-status badge-bids">استلام عروض</span></td>
+                  <td>10 أكتوبر</td>
+                </tr>
+                <tr>
+                  <td><strong>QM-1031</strong></td>
+                  <td>منسوجات</td>
+                  <td>900 كجم</td>
+                  <td><span class="badge-status badge-transit">في النقل</span></td>
+                  <td>7 أكتوبر</td>
+                </tr>
+                <tr>
+                  <td><strong>QM-1024</strong></td>
+                  <td>كرتون وورق</td>
+                  <td>3.1 طن</td>
+                  <td><span class="badge-status badge-completed">مكتمل</span></td>
+                  <td>2 أكتوبر</td>
+                </tr>
+                <tr>
+                  <td><strong>QM-1017</strong></td>
+                  <td>بلاستيك</td>
+                  <td>1.2 طن</td>
+                  <td><span class="badge-status badge-completed">مكتمل</span></td>
+                  <td>28 سبتمبر</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- عروض الأسعار الواردة -->
+          <div class="panel-box">
+            <div class="panel-head">
+              <h3>عروض الأسعار الواردة</h3>
+              <span class="panel-link">عرض الكل</span>
+            </div>
+
+            <div class="quote-bids-list">
+              <!-- عرض 1 -->
+              <div class="quote-bid-card">
+                <div class="quote-bid-info">
+                  <div class="quote-bid-icon"><i class="fas fa-recycle"></i></div>
+                  <div>
+                    <div class="quote-bid-title">عرض من مصنع تدوير</div>
+                    <div class="quote-bid-sub">بلاستيك · 1.8 طن · QM-1038</div>
+                  </div>
+                </div>
+                <div class="quote-bid-price">
+                  <div class="amount">6,300</div>
+                  <div class="currency">ر.س</div>
+                </div>
+              </div>
+
+              <!-- عرض 2 -->
+              <div class="quote-bid-card">
+                <div class="quote-bid-info">
+                  <div class="quote-bid-icon"><i class="fas fa-recycle"></i></div>
+                  <div>
+                    <div class="quote-bid-title">عرض من مصنع تدوير</div>
+                    <div class="quote-bid-sub">بلاستيك · 1.8 طن · QM-1038</div>
+                  </div>
+                </div>
+                <div class="quote-bid-price">
+                  <div class="amount">6,750</div>
+                  <div class="currency">ر.س</div>
+                </div>
+              </div>
+
+              <!-- عرض 3 -->
+              <div class="quote-bid-card">
+                <div class="quote-bid-info">
+                  <div class="quote-bid-icon"><i class="fas fa-recycle"></i></div>
+                  <div>
+                    <div class="quote-bid-title">عرض من مصنع تدوير</div>
+                    <div class="quote-bid-sub">كرتون وورق · 2.4 طن · QM-1042</div>
+                  </div>
+                </div>
+                <div class="quote-bid-price">
+                  <div class="amount">3,900</div>
+                  <div class="currency">ر.س</div>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn-compare-quotes" onclick="alert('فتح مقارنة العروض التنافسية...')">
+              مقارنة العروض
+            </button>
+          </div>
+        </div>
+
+        <!-- رحلة الطلب المباشرة (QM-1031) -->
+        <div class="order-journey-panel">
+          <div class="panel-head" style="margin-bottom: 0;">
+            <h3>رحلة الطلب <span style="font-size: 0.9rem; font-weight: 600; color: #63776b;">QM-1031 · منسوجات · 900 كجم</span></h3>
+          </div>
+
+          <div class="journey-stepper">
+            <!-- 1. رفع الطلب -->
+            <div class="journey-step done">
+              <div class="step-circle"><i class="fas fa-check"></i></div>
+              <div class="step-title">رفع الطلب</div>
+              <div class="step-desc">7 أكتوبر</div>
+            </div>
+
+            <!-- 2. التسعير والتقييم -->
+            <div class="journey-step done">
+              <div class="step-circle"><i class="fas fa-check"></i></div>
+              <div class="step-title">التسعير والتقييم</div>
+              <div class="step-desc">8 أكتوبر</div>
+            </div>
+
+            <!-- 3. النقل (الحالية) -->
+            <div class="journey-step active">
+              <div class="step-circle"><i class="fas fa-truck"></i></div>
+              <div class="step-title">النقل</div>
+              <div class="step-desc">الحالية · الشريك اللوجستي</div>
+            </div>
+
+            <!-- 4. التسليم للمصنع -->
+            <div class="journey-step">
+              <div class="step-circle"><i class="fas fa-industry"></i></div>
+              <div class="step-title">التسليم للمصنع</div>
+              <div class="step-desc">بانتظار النقل</div>
+            </div>
+
+            <!-- 5. التوثيق وتقرير الأثر -->
+            <div class="journey-step">
+              <div class="step-circle"><i class="fas fa-certificate"></i></div>
+              <div class="step-title">التوثيق وتقرير الأثر</div>
+              <div class="step-desc">بعد الاستلام</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- مركز الأثر والموارد المدورة شهرياً -->
+        <div class="impact-bottom-grid">
+          <!-- مركز الأثر -->
+          <div class="panel-box">
+            <div class="panel-head">
+              <h3>مركز الأثر</h3>
+              <span class="panel-link">تقرير الاستدامة</span>
+            </div>
+
+            <div class="impact-metrics-row">
+              <div class="impact-metric-box">
+                <div class="val">9.7</div>
+                <div class="lbl">الانبعاثات المخفَّضة<br><span style="font-size: 0.68rem;">طن CO₂ مكافئ</span></div>
+              </div>
+              <div class="impact-metric-box">
+                <div class="val">18.4</div>
+                <div class="lbl">مرادم مُجنَّبة<br><span style="font-size: 0.68rem;">طن</span></div>
+              </div>
+              <div class="impact-metric-box">
+                <div class="val">42,650</div>
+                <div class="lbl">العائد الاقتصادي<br><span style="font-size: 0.68rem;">ر.س</span></div>
+              </div>
+            </div>
+
+            <div style="font-size: 0.82rem; font-weight: 800; color: #173822; margin-bottom: 0.75rem;">
+              التوزيع حسب نوع المورد
+            </div>
+
+            <div class="resource-dist-bars">
+              <div class="dist-bar-item">
+                <div class="dist-bar-name">كرتون وورق</div>
+                <div class="dist-bar-track">
+                  <div class="dist-bar-fill" style="width: 62%;"></div>
+                </div>
+                <div class="dist-bar-percent">62%</div>
+              </div>
+
+              <div class="dist-bar-item">
+                <div class="dist-bar-name">بلاستيك</div>
+                <div class="dist-bar-track">
+                  <div class="dist-bar-fill" style="width: 28%; background-color: #407b4f;"></div>
+                </div>
+                <div class="dist-bar-percent">28%</div>
+              </div>
+
+              <div class="dist-bar-item">
+                <div class="dist-bar-name">منسوجات</div>
+                <div class="dist-bar-track">
+                  <div class="dist-bar-fill" style="width: 10%; background-color: #8fa797;"></div>
+                </div>
+                <div class="dist-bar-percent">10%</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- الموارد المُدوَّرة شهرياً (الرسم البياني بالأطنان) -->
+          <div class="panel-box">
+            <div class="panel-head">
+              <h3>الموارد المُدوَّرة شهرياً</h3>
+              <span style="font-size: 0.8rem; color: #799081;">بالطن · آخر 6 أشهر</span>
+            </div>
+
+            <div class="bar-chart-container">
+              <!-- مايو 1.8 -->
+              <div class="chart-bar-col">
+                <div class="bar-val">1.8</div>
+                <div class="bar-pill" style="height: 38px;"></div>
+                <div class="bar-month">مايو</div>
+              </div>
+
+              <!-- يونيو 2.4 -->
+              <div class="chart-bar-col">
+                <div class="bar-val">2.4</div>
+                <div class="bar-pill" style="height: 52px;"></div>
+                <div class="bar-month">يونيو</div>
+              </div>
+
+              <!-- يوليو 2.9 -->
+              <div class="chart-bar-col">
+                <div class="bar-val">2.9</div>
+                <div class="bar-pill" style="height: 65px;"></div>
+                <div class="bar-month">يوليو</div>
+              </div>
+
+              <!-- أغسطس 3.3 -->
+              <div class="chart-bar-col">
+                <div class="bar-val">3.3</div>
+                <div class="bar-pill" style="height: 75px;"></div>
+                <div class="bar-month">أغسطس</div>
+              </div>
+
+              <!-- سبتمبر 3.6 -->
+              <div class="chart-bar-col">
+                <div class="bar-val">3.6</div>
+                <div class="bar-pill" style="height: 82px;"></div>
+                <div class="bar-month">سبتمبر</div>
+              </div>
+
+              <!-- أكتوبر 4.4 -->
+              <div class="chart-bar-col">
+                <div class="bar-val">4.4</div>
+                <div class="bar-pill" style="height: 100px;"></div>
+                <div class="bar-month">أكتوبر</div>
+              </div>
+            </div>
+
+            <div class="demo-data-notice">
+              البيانات المعروضة تجريبية لأغراض التصميم.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- نافذة منبثقة: رفع طلب تسعير جديد للمورد (من مخطط رحلة المستخدم) -->
+  <div id="newRequestModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; backdrop-filter: blur(4px);">
+    <div style="background: #ffffff; border-radius: 14px; max-width: 500px; width: 90%; padding: 2rem; position: relative;">
+      <button onclick="closeNewRequestModal()" style="position: absolute; left: 1.2rem; top: 1.2rem; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #799081;">
+        <i class="fas fa-xmark"></i>
+      </button>
+      <div class="breadcrumb-tag">
+        <span class="dot"></span> إدارة الموارد والتسعير
+      </div>
+      <h3 style="font-size: 1.4rem; font-weight: 900; color: #173822; margin-bottom: 0.5rem;">رفع طلب مورد جديد</h3>
+      <p style="font-size: 0.88rem; color: #526658; margin-bottom: 1.5rem;">حدد نوع الموارد والكمية وارفع الصور لتقييمها وتسويقها بأفضل سعر.</p>
+      
+      <form onsubmit="event.preventDefault(); alert('تم رفع طلبك بنجاح! سيتم تقييمه والتسعير خلال 24 ساعة.'); closeNewRequestModal();">
+        <div class="form-field-group" style="margin-bottom: 1rem;">
+          <label style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.3rem; display: block;">نوع المورد</label>
+          <select style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid #dfe9e2; font-family: inherit;">
+            <option>كرتون وورق</option>
+            <option>بلاستيك HDPE</option>
+            <option>بلاستيك PET</option>
+            <option>منسوجات وملابس</option>
+            <option>معادن وألمنيوم</option>
+            <option>إطارات</option>
+            <option>بطاريات</option>
+          </select>
+        </div>
+
+        <div class="form-field-group" style="margin-bottom: 1rem;">
+          <label style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.3rem; display: block;">الكمية التقديرية</label>
+          <input type="text" placeholder="مثال: 2.5 طن أو 500 كجم" required style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid #dfe9e2; font-family: inherit;">
+        </div>
+
+        <div class="form-field-group" style="margin-bottom: 1.5rem;">
+          <label style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.3rem; display: block;">صور الموارد للتثبت والفحص</label>
+          <div style="border: 2px dashed #ccdcd0; border-radius: 8px; padding: 1.5rem; text-align: center; background: #f8faf9; cursor: pointer;">
+            <i class="fas fa-cloud-arrow-up" style="font-size: 2rem; color: #235836; margin-bottom: 0.5rem;"></i>
+            <div style="font-size: 0.85rem; font-weight: 700; color: #173822;">اضغط لرفع صور الشحنة أو اسحبها هنا</div>
+            <div style="font-size: 0.75rem; color: #799081; margin-top: 0.2rem;">يدعم JPG, PNG حتى 10 ميجابايت</div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-create-request" style="width: 100%; justify-content: center; padding: 0.85rem;">
+          إرسال الطلب واعتماد التسعير <i class="fas fa-arrow-left"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openNewRequestModal() {
+      document.getElementById('newRequestModal').style.display = 'flex';
+    }
+    function closeNewRequestModal() {
+      document.getElementById('newRequestModal').style.display = 'none';
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مخططات رحلة المستخدم | منصة قيمة</title>
+  <meta name="description" content="مخطط رحلة المورد ورحلة المشتري (مصنع التدوير) من أول زيارة للمنصة حتى التوثيق وتقرير الأثر.">
+  <link rel="icon" type="image/png" href="images/logo.png">
+
+  <!-- خط Cairo الرسمي -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .journey-page-body {
+      background-color: #f6f9f7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .journey-hero {
+      background: #ffffff;
+      padding: 2.5rem 0 2rem;
+      border-bottom: 1px solid #e5ede7;
+      text-align: center;
+    }
+
+    .journey-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #2e6942;
+      margin-bottom: 0.5rem;
+    }
+    .journey-tag .dot {
+      width: 7px;
+      height: 7px;
+      background: #407b4f;
+      border-radius: 50%;
+    }
+
+    .journey-hero h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: #173822;
+      margin-bottom: 0.5rem;
+    }
+
+    .journey-tabs-switch {
+      display: inline-flex;
+      background: #edf3ee;
+      padding: 0.35rem;
+      border-radius: 30px;
+      gap: 0.3rem;
+      margin-top: 1.25rem;
+    }
+
+    .journey-tab-btn {
+      padding: 0.6rem 1.8rem;
+      border-radius: 25px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      border: none;
+      background: transparent;
+      color: #526658;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .journey-tab-btn.active {
+      background: #235836;
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(35, 88, 54, 0.2);
+    }
+
+    /* كرت المخطط الكامل */
+    .journey-diagram-card {
+      background: #ffffff;
+      border: 1px solid #dfe7e1;
+      border-radius: 14px;
+      padding: 2rem;
+      margin: 2.5rem 0;
+      overflow-x: auto;
+    }
+
+    .diagram-head-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #edf2ee;
+    }
+
+    .diagram-title-wrap h2 {
+      font-size: 1.65rem;
+      font-weight: 900;
+      color: #173822;
+    }
+
+    .diagram-title-wrap p {
+      font-size: 0.88rem;
+      color: #6d8577;
+      margin-top: 0.2rem;
+    }
+
+    .diagram-legend {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .legend-box {
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+    }
+    .legend-box.designed { background: #dcfce7; border: 1px solid #86efac; }
+    .legend-box.missing { background: #fef3c7; border: 1px solid #fde047; }
+    .legend-box.external { background: #f1f5f9; border: 1px solid #cbd5e1; }
+
+    /* مسارات المراحل الثلاث العلوية */
+    .stages-phase-bar {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 0.6rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .phase-pill-banner {
+      background: #eaf3ed;
+      color: #166534;
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-align: center;
+    }
+
+    /* جدول مصفوفة خطوات الرحلة (8 أعمدة) */
+    .journey-matrix-table {
+      width: 100%;
+      min-width: 980px;
+      border-collapse: separate;
+      border-spacing: 0.6rem;
+    }
+
+    .matrix-num-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #235836;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.35rem;
+    }
+
+    .matrix-stage-head {
+      background: #fbfdfc;
+      border: 1px solid #e2ebe4;
+      border-radius: 8px;
+      padding: 0.85rem 0.6rem;
+      text-align: center;
+    }
+
+    .matrix-stage-head h4 {
+      font-size: 0.88rem;
+      font-weight: 900;
+      color: #173822;
+    }
+
+    .matrix-row-title-cell {
+      width: 110px;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #63776b;
+      vertical-align: top;
+      padding-top: 0.75rem;
+    }
+
+    .matrix-cell {
+      background: #ffffff;
+      border: 1px solid #e8f0eb;
+      border-radius: 8px;
+      padding: 0.85rem 0.7rem;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      color: #2b3e32;
+      vertical-align: top;
+    }
+
+    .matrix-cell.action-cell {
+      background: #fafcfb;
+    }
+
+    .matrix-cell.page-badge-cell {
+      font-weight: 800;
+      text-align: center;
+    }
+
+    .page-tag-pill {
+      display: block;
+      padding: 0.4rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-decoration: none;
+      margin-bottom: 0.35rem;
+      transition: all 0.2s;
+    }
+    .page-tag-pill.designed {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #86efac;
+    }
+    .page-tag-pill.designed:hover {
+      background: #bbf7d0;
+      transform: translateY(-1px);
+    }
+    .page-tag-pill.missing {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fde047;
+    }
+    .page-tag-pill.external {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+    }
+
+    .matrix-cell.role-cell {
+      color: #526658;
+      font-size: 0.78rem;
+    }
+
+    .matrix-cell.opportunity-cell {
+      background: #f7faf8;
+      border-style: dashed;
+      border-color: #ccdcd1;
+      font-size: 0.78rem;
+      color: #1b442a;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body class="journey-page-body">
+
+  <!-- الهيدر الموحد -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <div class="nav-actions">
+        <a href="register.html" class="btn-green-pill">
+          انضم للمنصة <i class="fas fa-arrow-left"></i>
+        </a>
+        <a href="login.html" class="contact-nav-link" style="margin-left: 0.5rem;">
+          <i class="far fa-user-circle"></i> تسجيل الدخول
+        </a>
+        <button class="mobile-menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="user-journey.html" class="nav-link active">رحلة المستخدم</a>
+        <a href="auction-details.html" class="nav-link">المزادات</a>
+        <a href="marketplace.html" class="nav-link">سوق الموارد</a>
+        <a href="supplier-dashboard.html" class="nav-link">لوحة المورد</a>
+        <a href="admin-dashboard.html" class="nav-link">لوحة الإدارة</a>
+        <a href="index.html" class="nav-link">الرئيسية</a>
+      </nav>
+
+      <a href="index.html" class="logo-area">
+        <div class="logo-text-wrap">
+          <h1>قيمة</h1>
+          <span>كل مورد.. له قيمة</span>
+        </div>
+        <img src="images/logo.png" alt="شعار منصة قيمة" class="logo-img-tag">
+      </a>
+    </div>
+  </header>
+
+  <!-- هيدر العنوان والتبديل بين رحلة المورد ورحلة المشتري -->
+  <section class="journey-hero">
+    <div class="container">
+      <div class="journey-tag">
+        <span class="dot"></span> مخططات تجربة ورحلة المستخدم
+      </div>
+      <h1>مخطط رحلة المستخدم التفصيلي</h1>
+      <p style="font-size: 0.95rem; color: #5d7365; max-width: 650px; margin: 0 auto;">
+        تحليل معمق لكافة نقاط الاتصال (Touchpoints) بين المنظومة والمستخدم، مع ربط كل مرحلة بصفحتها المطبقة وفرص التحسين المكتشفة.
+      </p>
+
+      <div class="journey-tabs-switch">
+        <button class="journey-tab-btn active" id="tabBtnSupplier" onclick="showJourney('supplier')">
+          <i class="fas fa-boxes-stacked"></i> رحلة المورد (8 خطوات)
+        </button>
+        <button class="journey-tab-btn" id="tabBtnBuyer" onclick="showJourney('buyer')">
+          <i class="fas fa-industry"></i> رحلة المشتري / مصنع التدوير (8 خطوات)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <main class="container" style="flex-grow: 1;">
+    
+    <!-- ==============================================
+         1. رحلة المورد (مطابقة لـ Page 7 من الـ PDF)
+         ============================================== -->
+    <div class="journey-diagram-card" id="journeySupplierCard">
+      <div class="diagram-head-flex">
+        <div class="diagram-title-wrap">
+          <h2>رحلة المورد</h2>
+          <p>من أول زيارة للمنصة إلى تقرير الأثر، مع الصفحات المصممة والناقصة في كل مرحلة.</p>
+        </div>
+
+        <div class="diagram-legend">
+          <div class="legend-item">
+            <span class="legend-box designed"></span>
+            <span>مصممة (صفحة جاهزة يمكنك النقر عليها)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-box missing"></span>
+            <span>ناقصة (تحتاج تصميماً)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-box external"></span>
+            <span>خارج هذا الملف</span>
+          </div>
+        </div>
+      </div>
+
+      <table class="journey-matrix-table">
+        <!-- صف عناوين المراحل الرئيسية -->
+        <thead>
+          <tr>
+            <th class="matrix-row-title-cell">المرحلة</th>
+            <th colspan="3" class="phase-pill-banner">الاكتشاف والانضمام</th>
+            <th colspan="3" class="phase-pill-banner" style="background:#e0f2fe; color:#0369a1;">إدارة الموارد والتسعير</th>
+            <th colspan="2" class="phase-pill-banner" style="background:#fef3c7; color:#b45309;">النقل والأثر</th>
+          </tr>
+
+          <!-- صف الخطوات 1 إلى 8 -->
+          <tr>
+            <th class="matrix-row-title-cell">الخطوة</th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">1</div>
+              <h4>اكتشاف المنصة</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">2</div>
+              <h4>الانضمام</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">3</div>
+              <h4>تسجيل الدخول</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">4</div>
+              <h4>لوحة التحكم</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">5</div>
+              <h4>رفع طلب جديد</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">6</div>
+              <h4>التسعير والعروض</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">7</div>
+              <h4>النقل والتسليم</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">8</div>
+              <h4>التوثيق والأثر</h4>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <!-- 1. هدف المستخدم -->
+          <tr>
+            <td class="matrix-row-title-cell">هدف المستخدم</td>
+            <td class="matrix-cell">معرفة كيف تحوّل مواردها إلى قيمة</td>
+            <td class="matrix-cell">فتح حساب مورد</td>
+            <td class="matrix-cell">الوصول إلى حسابه</td>
+            <td class="matrix-cell">نظرة سريعة على الطلبات والعروض</td>
+            <td class="matrix-cell">عرض موارده للتسعير</td>
+            <td class="matrix-cell">الحصول على أفضل سعر لمواردها</td>
+            <td class="matrix-cell">خروج الموارد بسلاسة</td>
+            <td class="matrix-cell">إثبات الأثر والعائد</td>
+          </tr>
+
+          <!-- 2. ما يفعله -->
+          <tr>
+            <td class="matrix-row-title-cell">ما يفعله</td>
+            <td class="matrix-cell action-cell">يزور الموقع ويقرأ «كيف تعمل المنصة»</td>
+            <td class="matrix-cell action-cell">يختار «مورد» ويكتب بيانات الجهة والتواصل</td>
+            <td class="matrix-cell action-cell">يدخل بالبريد أو الجوال وكلمة المرور</td>
+            <td class="matrix-cell action-cell">يراجع المؤشرات وآخر طلبات التسعير</td>
+            <td class="matrix-cell action-cell">يحدد نوع الموارد والكمية ويرفق الصور</td>
+            <td class="matrix-cell action-cell">يراجع العروض ويقارنها ويقبل أحدها</td>
+            <td class="matrix-cell action-cell">يتابع حالة النقل حتى وصولها للمصنع</td>
+            <td class="matrix-cell action-cell">يستعرض مركز الأثر ويحمّل التقرير</td>
+          </tr>
+
+          <!-- 3. الصفحة المرتبطة -->
+          <tr>
+            <td class="matrix-row-title-cell">الصفحة</td>
+            <td class="matrix-cell page-badge-cell">
+              <a href="index.html" class="page-tag-pill external">موقع قيمة الرئيسي</a>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <a href="register.html" class="page-tag-pill designed">✓ انضم للمنصة</a>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <a href="login.html" class="page-tag-pill designed">✓ تسجيل الدخول</a>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <a href="supplier-dashboard.html" class="page-tag-pill designed">✓ لوحة المورد</a>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <a href="supplier-dashboard.html" class="page-tag-pill missing">+ رفع طلب جديد</a>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <span class="page-tag-pill missing">+ عروض الأسعار ومقارنتها</span>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <a href="supplier-dashboard.html" class="page-tag-pill designed">✓ رحلة الطلب</a>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <a href="supplier-dashboard.html" class="page-tag-pill designed">✓ مركز الأثر وتقرير الاستدامة</a>
+            </td>
+          </tr>
+
+          <!-- 4. دور قيمة -->
+          <tr>
+            <td class="matrix-row-title-cell">دور قيمة</td>
+            <td class="matrix-cell role-cell">عرض القيمة: «كل مورد.. له قيمة»</td>
+            <td class="matrix-cell role-cell">مراجعة الطلب واعتماد الحساب من لوحة الإدارة</td>
+            <td class="matrix-cell role-cell">توثيق الدخول وحماية الحساب</td>
+            <td class="matrix-cell role-cell">عرض حالة الطلبات والإشعارات</td>
+            <td class="matrix-cell role-cell">استقبال الطلب وتقييمه</td>
+            <td class="matrix-cell role-cell">التسعير والتقييم والتسويق وتجميع العروض</td>
+            <td class="matrix-cell role-cell">تنسيق الشريك اللوجستي وصناديق الجمع</td>
+            <td class="matrix-cell role-cell">توثيق العملية وإصدار تقارير الأثر (ESG)</td>
+          </tr>
+
+          <!-- 5. فرصة للتحسين -->
+          <tr>
+            <td class="matrix-row-title-cell">فرصة للتحسين</td>
+            <td class="matrix-cell opportunity-cell">زر واضح «اعرض مواردك واطلب التسعير»</td>
+            <td class="matrix-cell opportunity-cell">توضيح مدة الاعتماد بعد التسجيل</td>
+            <td class="matrix-cell opportunity-cell">الدخول برمز تحقق عبر الجوال (OTP)</td>
+            <td class="matrix-cell opportunity-cell">تنبيه فوري عند وصول عرض جديد</td>
+            <td class="matrix-cell opportunity-cell">اقتراح نوع المورد من الصورة بالذكاء الاصطناعي</td>
+            <td class="matrix-cell opportunity-cell">مرجع سعري عبر «مؤشر قيمة»</td>
+            <td class="matrix-cell opportunity-cell">إشعار عند الاستلام وعند التسليم</td>
+            <td class="matrix-cell opportunity-cell">تقرير جاهز للمشاركة مع أصحاب المصلحة</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ==============================================
+         2. رحلة المشتري - مصنع التدوير (مطابقة لـ Page 8)
+         ============================================== -->
+    <div class="journey-diagram-card" id="journeyBuyerCard" style="display: none;">
+      <div class="diagram-head-flex">
+        <div class="diagram-title-wrap">
+          <h2>رحلة المشتري (مصنع التدوير)</h2>
+          <p>من الانضمام إلى تصفح السوق والمزايدة، ثم التعاقد والاستلام والتوثيق.</p>
+        </div>
+
+        <div class="diagram-legend">
+          <div class="legend-item">
+            <span class="legend-box designed"></span>
+            <span>مصممة (صفحة جاهزة)</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-box missing"></span>
+            <span>ناقصة (تحتاج تصميماً)</span>
+          </div>
+        </div>
+      </div>
+
+      <table class="journey-matrix-table">
+        <thead>
+          <tr>
+            <th class="matrix-row-title-cell">المرحلة</th>
+            <th colspan="2" class="phase-pill-banner">الانضمام والدخول</th>
+            <th colspan="3" class="phase-pill-banner" style="background:#e0f2fe; color:#0369a1;">التصفح والشراء والمزايدة</th>
+            <th colspan="3" class="phase-pill-banner" style="background:#fef3c7; color:#b45309;">التعاقد والاستلام والتوثيق</th>
+          </tr>
+
+          <tr>
+            <th class="matrix-row-title-cell">الخطوة</th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">1</div>
+              <h4>الانضمام كمشترٍ</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">2</div>
+              <h4>تسجيل الدخول</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">3</div>
+              <h4>تصفح سوق الموارد</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">4</div>
+              <h4>الشراء أو طلب عرض</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">5</div>
+              <h4>المزايدة على دفعة</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">6</div>
+              <h4>الترسية والتعاقد</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">7</div>
+              <h4>النقل والاستلام</h4>
+            </th>
+            <th class="matrix-stage-head">
+              <div class="matrix-num-circle">8</div>
+              <h4>التوثيق والمتابعة</h4>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <!-- هدف المستخدم -->
+          <tr>
+            <td class="matrix-row-title-cell">هدف المستخدم</td>
+            <td class="matrix-cell">فتح حساب مشترٍ لمصنع التدوير</td>
+            <td class="matrix-cell">الوصول إلى حسابه</td>
+            <td class="matrix-cell">إيجاد مواد خام مفروزة تناسب مصنعه</td>
+            <td class="matrix-cell">تأمين كمية بسعر معروف</td>
+            <td class="matrix-cell">الفوز بدفعة ضخمة بسعر مناسب</td>
+            <td class="matrix-cell">تثبيت الصفقة بعقد واضح</td>
+            <td class="matrix-cell">وصول المواد المفروزة إلى المصنع</td>
+            <td class="matrix-cell">سجل واضح لعملياته ومشترياته</td>
+          </tr>
+
+          <!-- ما يفعله -->
+          <tr>
+            <td class="matrix-row-title-cell">ما يفعله</td>
+            <td class="matrix-cell action-cell">يختار «مشترٍ» ويكتب بيانات المصنع</td>
+            <td class="matrix-cell action-cell">يدخل بالبريد أو الجوال وكلمة المرور</td>
+            <td class="matrix-cell action-cell">يبحث ويصفّي بالفئة والحالة والكمية</td>
+            <td class="matrix-cell action-cell">يضيف للسلة أو يطلب عرض سعر</td>
+            <td class="matrix-cell action-cell">يتابع العداد ويقدّم مزايدته</td>
+            <td class="matrix-cell action-cell">يراجع العقد إلكترونياً ويؤكد الدفع</td>
+            <td class="matrix-cell action-cell">يتابع الشحنة ويستلم الكمية</td>
+            <td class="matrix-cell action-cell">يراجع العمليات والفواتير والتقارير</td>
+          </tr>
+
+          <!-- الصفحة -->
+          <tr>
+            <td class="matrix-row-title-cell">الصفحة</td>
+            <td class="matrix-cell page-badge-cell">
+              <a href="register.html" class="page-tag-pill designed">✓ انضم للمنصة</a>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <a href="login.html" class="page-tag-pill designed">✓ تسجيل الدخول</a>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <a href="marketplace.html" class="page-tag-pill designed">✓ سوق الموارد</a>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <a href="marketplace.html" class="page-tag-pill designed">✓ سوق الموارد + السلة</a>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <a href="auction-details.html" class="page-tag-pill designed">✓ مزاد الدفعة</a>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <span class="page-tag-pill missing">+ العقود والصفقات</span>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <span class="page-tag-pill missing">+ متابعة الشحنات</span>
+            </td>
+            <td class="matrix-cell page-badge-cell">
+              <span class="page-tag-pill missing">+ السجل والتقارير</span>
+            </td>
+          </tr>
+
+          <!-- دور قيمة -->
+          <tr>
+            <td class="matrix-row-title-cell">دور قيمة</td>
+            <td class="matrix-cell role-cell">مراجعة الطلب واعتماد حساب المشتري</td>
+            <td class="matrix-cell role-cell">توثيق الدخول وحماية الحساب</td>
+            <td class="matrix-cell role-cell">عرض المواد المتاحة وربط العرض بالطلب</td>
+            <td class="matrix-cell role-cell">التسعير وتجهيز العرض للمشتري</td>
+            <td class="matrix-cell role-cell">إدارة المزاد والتحقق من حساب المشتري</td>
+            <td class="matrix-cell role-cell">إدارة العقود وعمليات البيع والشراء</td>
+            <td class="matrix-cell role-cell">تنسيق النقل مع الشركاء اللوجستيين</td>
+            <td class="matrix-cell role-cell">توثيق العملية وإصدار التقارير</td>
+          </tr>
+
+          <!-- فرصة للتحسين -->
+          <tr>
+            <td class="matrix-row-title-cell">فرصة للتحسين</td>
+            <td class="matrix-cell opportunity-cell">رفع وثائق المنشأة للتحقق السريع</td>
+            <td class="matrix-cell opportunity-cell">الدخول برمز تحقق عبر الجوال</td>
+            <td class="matrix-cell opportunity-cell">حفظ البحث والتنبيه عند توفر المادة</td>
+            <td class="matrix-cell opportunity-cell">مقارنة السعر المباشر بسعر المزاد</td>
+            <td class="matrix-cell opportunity-cell">تنبيه عند تجاوز مزايدته</td>
+            <td class="matrix-cell opportunity-cell">توقيع إلكتروني للعقد</td>
+            <td class="matrix-cell opportunity-cell">تأكيد الكمية والجودة عند الاستلام</td>
+            <td class="matrix-cell opportunity-cell">إعادة الشراء بنقرة واحدة</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <!-- الفوتر -->
+  <footer class="site-footer-clean">
+    <div class="container footer-copyright">
+      جميع الحقوق محفوظة © منصة قيمة للاقتصاد الدائري في المملكة 2026
+    </div>
+  </footer>
+
+  <script>
+    function showJourney(type) {
+      if (type === 'supplier') {
+        document.getElementById('journeySupplierCard').style.display = 'block';
+        document.getElementById('journeyBuyerCard').style.display = 'none';
+        document.getElementById('tabBtnSupplier').classList.add('active');
+        document.getElementById('tabBtnBuyer').classList.remove('active');
+      } else {
+        document.getElementById('journeySupplierCard').style.display = 'none';
+        document.getElementById('journeyBuyerCard').style.display = 'block';
+        document.getElementById('tabBtnSupplier').classList.remove('active');
+        document.getElementById('tabBtnBuyer').classList.add('active');
+      }
+    }
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>

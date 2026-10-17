@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>لوحة الإدارة العامة | منصة قيمة</title>
+  <meta name="description" content="لوحة الإدارة العامة - نظرة عامة على المنصة، متابعة السوق والعمليات والإيرادات ومؤشرات النجاح في مكان واحد.">
+  <link rel="icon" type="image/png" href="images/logo.png">
+
+  <!-- خط Cairo الرسمي -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/admin.css">
+  <style>
+    .admin-dashboard-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .breadcrumb-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #3b8252;
+      margin-bottom: 0.25rem;
+    }
+    .breadcrumb-tag .dot {
+      width: 7px;
+      height: 7px;
+      background-color: #407b4f;
+      border-radius: 50%;
+    }
+
+    .admin-header-flex {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .admin-header-title h2 {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #173822;
+      line-height: 1.2;
+    }
+
+    .admin-header-title p {
+      font-size: 0.95rem;
+      color: #63776b;
+      margin-top: 0.2rem;
+    }
+
+    .filter-actions-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .filter-select-box {
+      padding: 0.6rem 1.2rem;
+      border: 1px solid #dfe9e2;
+      border-radius: 8px;
+      background: #ffffff;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #2c4133;
+      cursor: pointer;
+    }
+
+    .btn-export-rep {
+      background-color: #235836;
+      color: #ffffff;
+      padding: 0.65rem 1.4rem;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.88rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-export-rep:hover {
+      background-color: #1b442a;
+    }
+
+    /* كروت المؤشرات الأربعة العلوية */
+    .admin-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.15rem;
+    }
+
+    .admin-kpi-card {
+      background: #ffffff;
+      border: 1px solid #e5ede7;
+      border-radius: 12px;
+      padding: 1.25rem 1.4rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .admin-kpi-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+
+    .admin-kpi-top .lbl {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #5c7263;
+    }
+
+    .admin-kpi-top i {
+      color: #8fa797;
+      font-size: 1.05rem;
+    }
+
+    .admin-kpi-val {
+      font-size: 1.95rem;
+      font-weight: 900;
+      color: #173822;
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+
+    .admin-kpi-val .unit {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #526658;
+    }
+
+    .admin-kpi-subnote {
+      font-size: 0.76rem;
+      color: #799081;
+      font-weight: 600;
+    }
+    .admin-kpi-subnote.positive {
+      color: #2b7a46;
+    }
+
+    /* شبكة الصفوف: صفقات شهرية ومصادر إيرادات ومؤشرات النجاح وإجراءات عاجلة */
+    .dashboard-two-col {
+      display: grid;
+      grid-template-columns: 1.7fr 1.3fr;
+      gap: 1.25rem;
+    }
+
+    .card-panel-clean {
+      background: #ffffff;
+      border: 1px solid #e5ede7;
+      border-radius: 12px;
+      padding: 1.4rem;
+    }
+
+    .card-panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .card-panel-head h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #173822;
+    }
+
+    .card-panel-head .sub {
+      font-size: 0.8rem;
+      color: #799081;
+    }
+
+    /* الرسم البياني بالألف ر.س */
+    .bar-chart-deals {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 160px;
+      padding-top: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #edf3ee;
+    }
+
+    .deal-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      width: 12%;
+    }
+
+    .deal-pill {
+      width: 100%;
+      background: #9bcfa9;
+      border-radius: 6px 6px 0 0;
+      transition: all 0.3s ease;
+    }
+    .deal-col.active .deal-pill {
+      background: #235836;
+    }
+
+    .deal-val {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #173822;
+    }
+
+    .deal-month {
+      font-size: 0.75rem;
+      color: #799081;
+      font-weight: 700;
+    }
+
+    /* مصادر الإيرادات */
+    .revenue-sources-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .revenue-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid #f2f7f3;
+    }
+
+    .revenue-name {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #2c4133;
+    }
+
+    .revenue-amount-percent {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #173822;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .revenue-amount-percent .pct {
+      color: #6d8577;
+      font-weight: 600;
+      font-size: 0.78rem;
+    }
+
+    /* مؤشرات النجاح - أول 12 شهراً */
+    .goals-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .goal-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .goal-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .goal-progress-track {
+      height: 7px;
+      background: #edf3ee;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .goal-progress-bar {
+      height: 100%;
+      background: #235836;
+      border-radius: 4px;
+    }
+
+    .badge-status-goal {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+    .badge-preparing { background: #fef3c7; color: #b45309; }
+    .badge-developing { background: #e0f2fe; color: #0369a1; }
+
+    /* إجراءات عاجلة (تحتاج إجراءً) */
+    .urgent-actions-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .urgent-action-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #f0e6e6;
+      background: #fffafa;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+    }
+
+    .urgent-action-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .urgent-count-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #fee2e2;
+      color: #b91c1c;
+      font-weight: 900;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .urgent-text {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #2c4133;
+    }
+
+    .btn-urgent-review {
+      border: 1px solid #d3e2d7;
+      background: #ffffff;
+      color: #235836;
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-urgent-review:hover {
+      background: #235836;
+      color: #ffffff;
+    }
+
+    /* جدول آخر العمليات */
+    .admin-tx-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+    }
+
+    .admin-tx-table th {
+      padding: 0.75rem 0.6rem;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #81988a;
+      border-bottom: 1px solid #edf3ee;
+    }
+
+    .admin-tx-table td {
+      padding: 0.85rem 0.6rem;
+      font-size: 0.88rem;
+      color: #2a3d31;
+      border-bottom: 1px solid #f2f7f3;
+    }
+  </style>
+</head>
+<body class="admin-layout">
+
+  <!-- الشريط الجانبي للإدارة -->
+  <aside class="admin-sidebar">
+    <div class="sidebar-header">
+      <img src="images/logo.png" alt="شعار قيمة" style="width: 36px; height: 36px;">
+      <div class="logo-text-wrap">
+        <h3 style="font-size: 1.35rem; font-weight: 900; color: var(--primary-green); line-height: 1;">قيمة</h3>
+        <span style="font-size: 0.65rem; color: var(--text-muted); font-weight: 600;">كل مورد.. له قيمة</span>
+      </div>
+    </div>
+
+    <div class="sidebar-menu">
+      <div class="sidebar-item active">
+        <i class="fas fa-table-cells-large"></i>
+        <span>نظرة عامة</span>
+      </div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-boxes-stacked"></i>
+        <span>الموردون</span>
+        <span class="sidebar-badge">6</span>
+      </div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-industry"></i>
+        <span>المشترون</span>
+      </div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-list-check"></i>
+        <span>الطلبات والعمليات</span>
+      </div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-truck-fast"></i>
+        <span>الشركاء اللوجستيون</span>
+      </div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-file-invoice-dollar"></i>
+        <span>التقارير المالية</span>
+      </div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-chart-line"></i>
+        <span>مؤشر قيمة</span>
+      </div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-leaf"></i>
+        <span>تقارير الاستدامة</span>
+      </div>
+
+      <div style="margin-top: 2rem;" class="sidebar-section-title">النظام</div>
+
+      <div class="sidebar-item">
+        <i class="fas fa-gear"></i>
+        <span>الإعدادات</span>
+      </div>
+
+      <a href="login.html" class="sidebar-item" style="color: #c53030;">
+        <i class="fas fa-arrow-right-from-bracket" style="color: #c53030;"></i>
+        <span>تسجيل الخروج</span>
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="admin-user-info">
+        <div class="admin-avatar" style="background-color: #235836; color: #fff;">
+          <i class="fas fa-user-shield"></i>
+        </div>
+        <div class="admin-names">
+          <h5>فريق الإدارة</h5>
+          <span>مدير المنصة</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- مساحة العمل الرئيسية -->
+  <main class="admin-main">
+    <!-- الشريط العلوي -->
+    <header class="admin-topbar">
+      <div class="admin-search-box">
+        <input type="text" placeholder="ابحث برقم العملية، المنشأة، نوع المورد...">
+        <i class="fas fa-search"></i>
+      </div>
+
+      <div class="topbar-actions">
+        <a href="index.html" class="btn-outline-white-card" style="padding: 0.5rem 1rem; font-size: 0.85rem;" target="_blank">
+          <i class="fas fa-external-link-alt"></i> استعراض الموقع
+        </a>
+        <a href="marketplace.html" class="btn-green-pill" style="padding: 0.5rem 1.1rem; font-size: 0.85rem;">
+          <i class="fas fa-store"></i> سوق الموارد
+        </a>
+      </div>
+    </header>
+
+    <!-- محتوى لوحة الإدارة العامة -->
+    <div class="admin-content-body">
+      <div class="admin-dashboard-wrap">
+
+        <!-- الترويسة والفلتر -->
+        <div class="admin-header-flex">
+          <div class="admin-header-title">
+            <div class="breadcrumb-tag">
+              <span class="dot"></span> لوحة الإدارة العامة
+            </div>
+            <h2>نظرة عامة على المنصة</h2>
+            <p>متابعة السوق والعمليات والإيرادات ومؤشرات النجاح في مكان واحد.</p>
+          </div>
+
+          <div class="filter-actions-group">
+            <select class="filter-select-box">
+              <option>آخر 30 يوماً</option>
+              <option>الربع الحالي (Q3)</option>
+              <option>منذ بداية التشغيل</option>
+            </select>
+
+            <button class="btn-export-rep" onclick="alert('جاري تجهيز وتصدير التقرير التنفيذي PDF...')">
+              <i class="fas fa-arrow-down-to-bracket"></i> تصدير التقرير
+            </button>
+          </div>
+        </div>
+
+        <!-- 4 بطاقات KPI العلوية -->
+        <div class="admin-kpi-grid">
+          <!-- 1. إجمالي قيمة الصفقات -->
+          <div class="admin-kpi-card">
+            <div class="admin-kpi-top">
+              <span class="lbl">إجمالي قيمة الصفقات</span>
+              <i class="fas fa-arrow-right-arrow-left"></i>
+            </div>
+            <div class="admin-kpi-val">1,240,000 <span class="unit">ر.س</span></div>
+            <div class="admin-kpi-subnote">منذ بداية التشغيل</div>
+          </div>
+
+          <!-- 2. إجمالي الإيرادات -->
+          <div class="admin-kpi-card">
+            <div class="admin-kpi-top">
+              <span class="lbl">إجمالي الإيرادات</span>
+              <i class="fas fa-wallet"></i>
+            </div>
+            <div class="admin-kpi-val">218,800 <span class="unit">ر.س</span></div>
+            <div class="admin-kpi-subnote">68% منها عمولات الوساطة</div>
+          </div>
+
+          <!-- 3. الموردون الفعّالون -->
+          <div class="admin-kpi-card">
+            <div class="admin-kpi-top">
+              <span class="lbl">الموردون الفعّالون</span>
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="admin-kpi-val">142</div>
+            <div class="admin-kpi-subnote positive">+11 هذا الشهر</div>
+          </div>
+
+          <!-- 4. عمليات التداول المنفذة -->
+          <div class="admin-kpi-card">
+            <div class="admin-kpi-top">
+              <span class="lbl">عمليات التداول المنفذة</span>
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="admin-kpi-val">187</div>
+            <div class="admin-kpi-subnote positive">+23 هذا الشهر</div>
+          </div>
+        </div>
+
+        <!-- الصف الثاني: الصفقات الشهرية + مصادر الإيرادات -->
+        <div class="dashboard-two-col">
+          <!-- قيمة الصفقات الشهرية -->
+          <div class="card-panel-clean">
+            <div class="card-panel-head">
+              <h3>قيمة الصفقات الشهرية</h3>
+              <span class="sub">بالألف ر.س · آخر 6 أشهر</span>
+            </div>
+
+            <div class="bar-chart-deals">
+              <div class="deal-col">
+                <div class="deal-val">120</div>
+                <div class="deal-pill" style="height: 55px;"></div>
+                <div class="deal-month">مايو</div>
+              </div>
+              <div class="deal-col">
+                <div class="deal-val">160</div>
+                <div class="deal-pill" style="height: 72px;"></div>
+                <div class="deal-month">يونيو</div>
+              </div>
+              <div class="deal-col">
+                <div class="deal-val">205</div>
+                <div class="deal-pill" style="height: 90px;"></div>
+                <div class="deal-month">يوليو</div>
+              </div>
+              <div class="deal-col">
+                <div class="deal-val">240</div>
+                <div class="deal-pill" style="height: 108px;"></div>
+                <div class="deal-month">أغسطس</div>
+              </div>
+              <div class="deal-col">
+                <div class="deal-val">280</div>
+                <div class="deal-pill" style="height: 125px;"></div>
+                <div class="deal-month">سبتمبر</div>
+              </div>
+              <div class="deal-col active">
+                <div class="deal-val">235</div>
+                <div class="deal-pill" style="height: 105px;"></div>
+                <div class="deal-month">أكتوبر*</div>
+              </div>
+            </div>
+
+            <div style="font-size: 0.74rem; color: #8da496; margin-top: 0.75rem;">
+              * الشهر الحالي، حتى 15 أكتوبر.
+            </div>
+          </div>
+
+          <!-- مصادر الإيرادات -->
+          <div class="card-panel-clean">
+            <div class="card-panel-head">
+              <h3>مصادر الإيرادات</h3>
+              <span style="font-size: 0.8rem; font-weight: 700; color: #235836; cursor: pointer;">التفاصيل</span>
+            </div>
+
+            <div class="revenue-sources-list">
+              <div class="revenue-item">
+                <span class="revenue-name">عمولات الوساطة</span>
+                <span class="revenue-amount-percent">
+                  148,800 ر.س <span class="pct">· %68</span>
+                </span>
+              </div>
+              <div class="revenue-item">
+                <span class="revenue-name">رسوم إدارة العقود</span>
+                <span class="revenue-amount-percent">
+                  30,600 ر.س <span class="pct">· %14</span>
+                </span>
+              </div>
+              <div class="revenue-item">
+                <span class="revenue-name">تقارير الاستدامة</span>
+                <span class="revenue-amount-percent">
+                  17,500 ر.س <span class="pct">· %8</span>
+                </span>
+              </div>
+              <div class="revenue-item">
+                <span class="revenue-name">الاشتراكات</span>
+                <span class="revenue-amount-percent">
+                  15,300 ر.س <span class="pct">· %7</span>
+                </span>
+              </div>
+              <div class="revenue-item">
+                <span class="revenue-name">الإعلانات والرعايات</span>
+                <span class="revenue-amount-percent">
+                  6,600 ر.س <span class="pct">· %3</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- الصف الثالث: مؤشرات النجاح + تحتاج إجراءً -->
+        <div class="dashboard-two-col">
+          <!-- مؤشرات النجاح — أول 12 شهراً -->
+          <div class="card-panel-clean">
+            <div class="card-panel-head">
+              <div>
+                <h3>مؤشرات النجاح — أول 12 شهراً</h3>
+                <span class="sub">التقدم نحو مستهدفات السنة الأولى.</span>
+              </div>
+            </div>
+
+            <div class="goals-list">
+              <!-- هدف 1 -->
+              <div class="goal-row">
+                <div class="goal-header-row">
+                  <span>موردون فعّالون</span>
+                  <span style="color: #235836; font-weight: 800;">142 من 200</span>
+                </div>
+                <div class="goal-progress-track">
+                  <div class="goal-progress-bar" style="width: 71%;"></div>
+                </div>
+              </div>
+
+              <!-- هدف 2 -->
+              <div class="goal-row">
+                <div class="goal-header-row">
+                  <span>اتفاقيات مع شركاء إعادة التدوير</span>
+                  <span style="color: #235836; font-weight: 800;">19 من 30</span>
+                </div>
+                <div class="goal-progress-track">
+                  <div class="goal-progress-bar" style="width: 63%;"></div>
+                </div>
+              </div>
+
+              <!-- هدف 3 -->
+              <div class="goal-row">
+                <div class="goal-header-row">
+                  <span>عمليات تداول تجاري ناجحة</span>
+                  <span style="color: #235836; font-weight: 800;">187 من 300</span>
+                </div>
+                <div class="goal-progress-track">
+                  <div class="goal-progress-bar" style="width: 62%;"></div>
+                </div>
+              </div>
+
+              <!-- هدف 4 -->
+              <div style="display: flex; justify-content: space-between; align-items: center; padding-top: 0.5rem; border-top: 1px solid #f2f7f3;">
+                <span style="font-size: 0.85rem; font-weight: 700;">أول تقرير وطني شامل للاستدامة</span>
+                <span class="badge-status-goal badge-preparing">قيد الإعداد</span>
+              </div>
+
+              <!-- هدف 5 -->
+              <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-size: 0.85rem; font-weight: 700;">قاعدة البيانات الوطنية وإطلاق «مؤشر قيمة»</span>
+                <span class="badge-status-goal badge-developing">قيد التطوير</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- تحتاج إجراءً (14 عنصراً) -->
+          <div class="card-panel-clean">
+            <div class="card-panel-head">
+              <h3>تحتاج إجراءً <span style="font-size: 0.85rem; font-weight: 600; color: #b91c1c;">14 عنصراً</span></h3>
+            </div>
+
+            <div class="urgent-actions-list">
+              <div class="urgent-action-card">
+                <div class="urgent-action-info">
+                  <div class="urgent-count-circle">6</div>
+                  <span class="urgent-text">طلبات انضمام بانتظار الاعتماد</span>
+                </div>
+                <button class="btn-urgent-review" onclick="alert('عرض طلبات الانضمام المعلقة')">مراجعة</button>
+              </div>
+
+              <div class="urgent-action-card">
+                <div class="urgent-action-info">
+                  <div class="urgent-count-circle">4</div>
+                  <span class="urgent-text">طلبات تسعير بانتظار التقييم</span>
+                </div>
+                <button class="btn-urgent-review" onclick="alert('عرض طلبات التسعير المعلقة')">مراجعة</button>
+              </div>
+
+              <div class="urgent-action-card">
+                <div class="urgent-action-info">
+                  <div class="urgent-count-circle">3</div>
+                  <span class="urgent-text">عروض شراء بانتظار المراجعة</span>
+                </div>
+                <button class="btn-urgent-review" onclick="alert('عرض عروض الشراء المعلقة')">مراجعة</button>
+              </div>
+
+              <div class="urgent-action-card">
+                <div class="urgent-action-info">
+                  <div class="urgent-count-circle" style="background:#fee2e2; color:#b91c1c;">1</div>
+                  <span class="urgent-text">عملية نقل متأخرة</span>
+                </div>
+                <button class="btn-urgent-review" style="border-color:#b91c1c; color:#b91c1c;" onclick="alert('متابعة خط النقل المتعثر')">متابعة</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- الصف الرابع: جدول آخر العمليات -->
+        <div class="card-panel-clean">
+          <div class="card-panel-head">
+            <h3>آخر العمليات</h3>
+            <span style="font-size: 0.82rem; font-weight: 700; color: #235836; cursor: pointer;">عرض كل العمليات</span>
+          </div>
+
+          <table class="admin-tx-table">
+            <thead>
+              <tr>
+                <th>رقم العملية</th>
+                <th>المورد</th>
+                <th>المشتري</th>
+                <th>نوع الموارد</th>
+                <th>قيمة الصفقة</th>
+                <th>العمولة</th>
+                <th>الحالة</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>OP-0187</strong></td>
+                <td>فندق</td>
+                <td>مصنع تدوير</td>
+                <td>كرتون وورق</td>
+                <td>18,400 ر.س</td>
+                <td>2,208 ر.س</td>
+                <td><span class="badge-status badge-pricing">قيد التنفيذ</span></td>
+              </tr>
+              <tr>
+                <td><strong>OP-0186</strong></td>
+                <td>جامعة</td>
+                <td>مصنع تدوير</td>
+                <td>بلاستيك</td>
+                <td>12,600 ر.س</td>
+                <td>1,512 ر.س</td>
+                <td><span class="badge-status badge-transit">في النقل</span></td>
+              </tr>
+              <tr>
+                <td><strong>OP-0185</strong></td>
+                <td>شركة</td>
+                <td>مصنع تدوير</td>
+                <td>منسوجات</td>
+                <td>9,800 ر.س</td>
+                <td>1,176 ر.س</td>
+                <td><span class="badge-status badge-completed">مكتمل</span></td>
+              </tr>
+              <tr>
+                <td><strong>OP-0184</strong></td>
+                <td>مدرسة</td>
+                <td>مصنع تدوير</td>
+                <td>كرتون وورق</td>
+                <td>4,200 ر.س</td>
+                <td>504 ر.س</td>
+                <td><span class="badge-status badge-completed">مكتمل</span></td>
+              </tr>
+              <tr>
+                <td><strong>OP-0183</strong></td>
+                <td>فرد</td>
+                <td>مصنع تدوير</td>
+                <td>بلاستيك</td>
+                <td>1,300 ر.س</td>
+                <td>195 ر.س</td>
+                <td><span class="badge-status badge-completed">مكتمل</span></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div style="text-align: center; font-size: 0.78rem; color: #9cb1a3; margin-top: 1.25rem;">
+            البيانات المعروضة تجريبية لأغراض التصميم.
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+</body>
+</html>

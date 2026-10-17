@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سوق الموارد | كل مورد.. له قيمة</title>
+  <meta name="description" content="سوق الموارد منصة قيمة - تصفح الموارد والسلع المتاحة من الشركات والجهات والأفراد، واشترِ مباشرة أو اطلب عرض سعر أو شارك بالمزاد.">
+  <link rel="icon" type="image/png" href="images/logo.png">
+
+  <!-- خط Cairo الرسمي -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .marketplace-page {
+      background-color: #f7faf8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* هيدر التصفح في صفحة السوق */
+    .market-hero-header {
+      background: #ffffff;
+      padding: 2.5rem 0 1.5rem;
+      border-bottom: 1px solid #e7ede9;
+      text-align: center;
+    }
+
+    .market-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #2e6942;
+      margin-bottom: 0.5rem;
+    }
+    .market-tag .dot {
+      width: 7px;
+      height: 7px;
+      background: #407b4f;
+      border-radius: 50%;
+    }
+
+    .market-hero-header h1 {
+      font-size: 2.3rem;
+      font-weight: 900;
+      color: #173822;
+      margin-bottom: 0.5rem;
+    }
+
+    .market-hero-header p {
+      font-size: 0.95rem;
+      color: #5d7365;
+      max-width: 650px;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* شريط البحث الموحد */
+    .market-search-bar {
+      max-width: 720px;
+      margin: 0 auto;
+      display: flex;
+      background: #ffffff;
+      border: 1px solid #ccdcd1;
+      border-radius: 10px;
+      padding: 0.4rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    }
+
+    .market-search-bar input {
+      flex: 1;
+      border: none;
+      padding: 0.75rem 1rem;
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .market-search-bar button {
+      background: #235836;
+      color: #ffffff;
+      border: none;
+      padding: 0 1.8rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .market-search-bar button:hover {
+      background: #194027;
+    }
+
+    /* أزرار الفئات السريعة */
+    .market-category-pills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+    }
+
+    .cat-pill {
+      background: #f0f5f2;
+      color: #3b5242;
+      padding: 0.45rem 1.1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+    .cat-pill:hover, .cat-pill.active {
+      background: #235836;
+      color: #ffffff;
+    }
+
+    /* بانر المزادات الضخمة المباشرة (Page 5) */
+    .huge-auctions-banner {
+      background: linear-gradient(135deg, #173822 0%, #204b2f 100%);
+      color: #ffffff;
+      border-radius: 12px;
+      padding: 2rem 2.5rem;
+      margin: 2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .huge-auctions-banner::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: -50px;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 50%;
+    }
+
+    .auction-banner-text .sub-tag {
+      font-size: 0.82rem;
+      color: #9cd6ad;
+      font-weight: 700;
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .auction-banner-text h3 {
+      font-size: 1.65rem;
+      font-weight: 900;
+      margin-bottom: 0.4rem;
+    }
+
+    .auction-banner-text p {
+      font-size: 0.92rem;
+      color: #d1e5d7;
+    }
+
+    .btn-view-auctions {
+      background: #ffffff;
+      color: #173822;
+      padding: 0.8rem 1.6rem;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.92rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+    .btn-view-auctions:hover {
+      background: #eef5f0;
+      transform: translateY(-2px);
+    }
+
+    /* تخطيط السوق: الفلاتر الجانبية + شبكة المنتجات */
+    .market-content-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 1.8rem;
+      padding-bottom: 4rem;
+    }
+
+    /* الشريط الجانبي للتصفية */
+    .filter-sidebar {
+      background: #ffffff;
+      border: 1px solid #e2ebe4;
+      border-radius: 12px;
+      padding: 1.4rem;
+      height: fit-content;
+    }
+
+    .filter-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid #edf2ee;
+      margin-bottom: 1.25rem;
+    }
+
+    .filter-header-row h3 {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #173822;
+    }
+
+    .btn-reset-filters {
+      font-size: 0.78rem;
+      color: #799081;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .filter-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .filter-title {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #1b2e22;
+      margin-bottom: 0.75rem;
+    }
+
+    .filter-checkbox-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+      font-size: 0.85rem;
+      color: #3f5547;
+      cursor: pointer;
+    }
+
+    .filter-checkbox-item .count {
+      color: #9cb1a3;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
+    .filter-checkbox-item input {
+      accent-color: #235836;
+      margin-left: 0.5rem;
+    }
+
+    .btn-apply-filters {
+      width: 100%;
+      background: #235836;
+      color: #ffffff;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: none;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: all 0.2s;
+    }
+    .btn-apply-filters:hover {
+      background: #1a4229;
+    }
+
+    /* رأس شبكة المنتجات (الترتيب والعدد) */
+    .market-results-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .market-results-count {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #173822;
+    }
+
+    .sort-dropdown {
+      padding: 0.45rem 1rem;
+      border: 1px solid #dfe9e2;
+      border-radius: 6px;
+      background: #ffffff;
+      font-family: inherit;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #3b5242;
+    }
+
+    /* شبكة بطاقات الموارد (3 أعمدة مطابقة لـ Page 5) */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    .product-card {
+      background: #ffffff;
+      border: 1px solid #e5ede7;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+    .product-card:hover {
+      border-color: #bcd4c3;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(35, 88, 54, 0.06);
+    }
+
+    .product-badge-auction {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: #fef3c7;
+      color: #b45309;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      z-index: 2;
+    }
+
+    .product-icon-wrap {
+      height: 110px;
+      background: #fbfdfc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 1px solid #f0f5f2;
+    }
+
+    .product-icon-wrap i {
+      font-size: 2.8rem;
+      color: #235836;
+      opacity: 0.85;
+    }
+
+    .product-card-body {
+      padding: 1.15rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .prod-category-tag {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: #799081;
+      margin-bottom: 0.25rem;
+    }
+
+    .prod-title {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #173822;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .prod-spec-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: #63776b;
+      margin-bottom: 0.35rem;
+    }
+    .prod-spec-row strong {
+      color: #173822;
+    }
+
+    .prod-price-action-row {
+      margin-top: auto;
+      padding-top: 1rem;
+      border-top: 1px solid #f2f7f3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .prod-price {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: #173822;
+    }
+    .prod-price small {
+      font-size: 0.72rem;
+      color: #799081;
+      font-weight: 600;
+    }
+
+    .btn-add-cart {
+      background: #235836;
+      color: #ffffff;
+      border: none;
+      padding: 0.5rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .btn-add-cart:hover {
+      background: #1a4229;
+    }
+
+    .btn-bid-auction {
+      background: #173822;
+      color: #ffffff;
+      border: none;
+      padding: 0.5rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .btn-bid-auction:hover {
+      background: #0f2617;
+    }
+
+    .btn-rfq {
+      background: #ffffff;
+      border: 1px solid #235836;
+      color: #235836;
+      padding: 0.5rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+    }
+
+    .btn-load-more {
+      grid-column: 1 / -1;
+      margin: 2rem auto 0;
+      padding: 0.85rem 3rem;
+      background: #ffffff;
+      border: 1px solid #ccdcd1;
+      border-radius: 8px;
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: #173822;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-load-more:hover {
+      background: #f1f7f3;
+    }
+  </style>
+</head>
+<body class="marketplace-page">
+
+  <!-- الهيدر الموحد للمنصة -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <div class="nav-actions">
+        <a href="register.html" class="btn-green-pill">
+          انضم للمنصة <i class="fas fa-arrow-left"></i>
+        </a>
+        <a href="login.html" class="contact-nav-link" style="margin-left: 0.5rem;">
+          <i class="far fa-user-circle"></i> تسجيل الدخول
+        </a>
+        <div style="position: relative; display: inline-flex; align-items: center; margin-right: 0.75rem;">
+          <i class="fas fa-shopping-basket" style="font-size: 1.25rem; color: #235836; cursor: pointer;"></i>
+          <span style="position: absolute; top: -6px; right: -8px; background: #235836; color: #fff; font-size: 0.65rem; border-radius: 50%; width: 17px; height: 17px; display: flex; align-items: center; justify-content: center; font-weight: 800;">2</span>
+        </div>
+        <button class="mobile-menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="index.html#impact" class="nav-link">الأثر والاستدامة</a>
+        <a href="auction-details.html" class="nav-link">المزادات</a>
+        <a href="marketplace.html" class="nav-link active">سوق الموارد</a>
+        <a href="index.html#how-it-works" class="nav-link">كيف تعمل المنصة</a>
+        <a href="index.html#about" class="nav-link">عن قيمة</a>
+        <a href="index.html" class="nav-link">الرئيسية</a>
+      </nav>
+
+      <a href="index.html" class="logo-area">
+        <div class="logo-text-wrap">
+          <h1>قيمة</h1>
+          <span>كل مورد.. له قيمة</span>
+        </div>
+        <img src="images/logo.png" alt="شعار منصة قيمة" class="logo-img-tag">
+      </a>
+    </div>
+  </header>
+
+  <!-- هيدر قسم السوق والبحث الموحد -->
+  <section class="market-hero-header">
+    <div class="container">
+      <div class="market-tag">
+        <span class="dot"></span> المنصة الرقمية للاقتصاد الدائري
+      </div>
+      <h1>سوق الموارد كل مورد.. له قيمة.</h1>
+      <p>تصفّح الموارد والسلع المتاحة من الشركات والجهات والأفراد، واشترِ مباشرة أو اطلب عرض سعر.</p>
+
+      <!-- شريط البحث -->
+      <div class="market-search-bar">
+        <input type="text" placeholder="ابحث عن مورد: كرتون، بلاستيك، ألمنيوم، إطارات...">
+        <button type="button"><i class="fas fa-search"></i> بحث</button>
+      </div>
+
+      <!-- فئات الموارد المتاحة في التصميم -->
+      <div class="market-category-pills">
+        <span class="cat-pill active">الكل</span>
+        <span class="cat-pill">كرتون وورق</span>
+        <span class="cat-pill">بلاستيك</span>
+        <span class="cat-pill">منسوجات</span>
+        <span class="cat-pill">معادن</span>
+        <span class="cat-pill">إلكترونيات</span>
+        <span class="cat-pill">إطارات</span>
+        <span class="cat-pill">بطاريات</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- المحتوى الرئيسي للسوق: البانر والفلاتر والمنتجات -->
+  <main class="container" style="flex-grow: 1;">
+    
+    <!-- بانر مزادات السلع الضخمة بالمزايدة المباشرة (الصفحة 5) -->
+    <div class="huge-auctions-banner">
+      <div class="auction-banner-text">
+        <div class="sub-tag"><i class="fas fa-gavel"></i> مزادات السلع الضخمة</div>
+        <h3>دفعات ضخمة من الشركات، بالمزايدة المباشرة.</h3>
+        <p>كميات بالأطنان من الشركات والمصانع تُعرض للمزايدة. سجّل وشارك على أفضل سعر.</p>
+      </div>
+      <a href="auction-details.html" class="btn-view-auctions">
+        استعرض المزادات <i class="fas fa-arrow-left"></i>
+      </a>
+    </div>
+
+    <!-- شبكة السوق: الشريط الجانبي + شبكة الموارد -->
+    <div class="market-content-layout">
+      
+      <!-- الشريط الجانبي للتصفية (مطابق للتصميم الأصلي) -->
+      <aside class="filter-sidebar">
+        <div class="filter-header-row">
+          <h3>تصفية النتائج</h3>
+          <span class="btn-reset-filters" onclick="alert('تمت إعادة ضبط التصفية')">إعادة ضبط</span>
+        </div>
+
+        <!-- فئة المورد -->
+        <div class="filter-group">
+          <div class="filter-title">الفئة</div>
+          <label class="filter-checkbox-item">
+            <span><input type="checkbox" checked> كرتون وورق</span>
+            <span class="count">9</span>
+          </label>
+          <label class="filter-checkbox-item">
+            <span><input type="checkbox" checked> بلاستيك</span>
+            <span class="count">7</span>
+          </label>
+          <label class="filter-checkbox-item">
+            <span><input type="checkbox" checked> منسوجات</span>
+            <span class="count">3</span>
+          </label>
+          <label class="filter-checkbox-item">
+            <span><input type="checkbox" checked> معادن</span>
+            <span class="count">4</span>
+          </label>
+          <label class="filter-checkbox-item">
+            <span><input type="checkbox" checked> إلكترونيات</span>
+            <span class="count">2</span>
+          </label>
+          <label class="filter-checkbox-item">
+            <span><input type="checkbox" checked> إطارات</span>
+            <span class="count">2</span>
+          </label>
+          <label class="filter-checkbox-item">
+            <span><input type="checkbox" checked> بطاريات</span>
+            <span class="count">1</span>
+          </label>
+        </div>
+
+        <!-- نوع البيع -->
+        <div class="filter-group">
+          <div class="filter-title">نوع البيع</div>
+          <label class="filter-checkbox-item">
+            <span><input type="checkbox" checked> شراء مباشر</span>
+          </label>
+          <label class="filter-checkbox-item">
+            <span><input type="checkbox" checked> طلب عرض سعر</span>
+          </label>
+          <label class="filter-checkbox-item">
+            <span><input type="checkbox" checked> مزاد</span>
+          </label>
+        </div>
+
+        <!-- حالة المورد -->
+        <div class="filter-group">
+          <div class="filter-title">حالة المورد</div>
+          <label class="filter-checkbox-item">
+            <span><input type="checkbox" checked> مفروز ومكبوس</span>
+          </label>
+          <label class="filter-checkbox-item">
+            <span><input type="checkbox" checked> مفروز</span>
+          </label>
+          <label class="filter-checkbox-item">
+            <span><input type="checkbox" checked> غير مفروز</span>
+          </label>
+        </div>
+
+        <!-- الكمية المتاحة (طن) -->
+        <div class="filter-group">
+          <div class="filter-title">الكمية المتاحة (طن)</div>
+          <div style="display: flex; justify-content: space-between; font-size: 0.78rem; color: #799081; margin-bottom: 0.4rem;">
+            <span>0 طن</span>
+            <span>50 طن</span>
+          </div>
+          <input type="range" min="0" max="50" value="35" style="width: 100%; accent-color: #235836;">
+        </div>
+
+        <button class="btn-apply-filters">تطبيق التصفية</button>
+      </aside>
+
+      <!-- شبكة المنتجات (9 عناصر مطابقة للـ PDF تماماً) -->
+      <section>
+        <div class="market-results-header">
+          <div class="market-results-count">عرض 9 من 28 مورداً</div>
+          <select class="sort-dropdown">
+            <option>الأحدث</option>
+            <option>السعر: من الأقل للأعلى</option>
+            <option>السعر: من الأعلى للأقل</option>
+            <option>الكمية: الأكبر</option>
+          </select>
+        </div>
+
+        <div class="products-grid">
+          
+          <!-- 1. كرتون مموج مكبوس -->
+          <div class="product-card">
+            <div class="product-icon-wrap">
+              <i class="fas fa-boxes-stacked"></i>
+            </div>
+            <div class="product-card-body">
+              <span class="prod-category-tag">كرتون وورق</span>
+              <h4 class="prod-title">كرتون مموّج مكبوس</h4>
+              <div class="prod-spec-row">
+                <span>الكمية المتاحة</span>
+                <strong>12 طن</strong>
+              </div>
+              <div class="prod-spec-row">
+                <span>الحالة</span>
+                <strong>مفروز ومكبوس</strong>
+              </div>
+              <div class="prod-price-action-row">
+                <div class="prod-price">420 <small>ر.س / طن</small></div>
+                <button class="btn-add-cart" onclick="alert('تمت إضافة كرتون مموج مكبوس إلى السلة')">
+                  <i class="fas fa-cart-plus"></i> أضف للسلة
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. ورق أبيض مكتبي -->
+          <div class="product-card">
+            <div class="product-icon-wrap">
+              <i class="fas fa-file-invoice"></i>
+            </div>
+            <div class="product-card-body">
+              <span class="prod-category-tag">كرتون وورق</span>
+              <h4 class="prod-title">ورق أبيض مكتبي</h4>
+              <div class="prod-spec-row">
+                <span>الكمية المتاحة</span>
+                <strong>4.5 طن</strong>
+              </div>
+              <div class="prod-spec-row">
+                <span>الحالة</span>
+                <strong>مفروز</strong>
+              </div>
+              <div class="prod-price-action-row">
+                <div class="prod-price">650 <small>ر.س / طن</small></div>
+                <button class="btn-add-cart" onclick="alert('تمت إضافة ورق أبيض مكتبي إلى السلة')">
+                  <i class="fas fa-cart-plus"></i> أضف للسلة
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. بلاستيك PET مفروز (عبوات) - مزاد -->
+          <div class="product-card" style="border-color: #fbd38d;">
+            <span class="product-badge-auction">مزاد</span>
+            <div class="product-icon-wrap">
+              <i class="fas fa-bottle-water"></i>
+            </div>
+            <div class="product-card-body">
+              <span class="prod-category-tag">بلاستيك</span>
+              <h4 class="prod-title">بلاستيك PET مفروز (عبوات)</h4>
+              <div class="prod-spec-row">
+                <span>الكمية المتاحة</span>
+                <strong>18 طن</strong>
+              </div>
+              <div class="prod-spec-row">
+                <span>ينتهي المزاد خلال</span>
+                <strong style="color: #b45309;">5 ساعات</strong>
+              </div>
+              <div class="prod-price-action-row">
+                <div>
+                  <div style="font-size: 0.72rem; color: #799081;">أعلى مزايدة</div>
+                  <div class="prod-price">19,800 <small>ر.س</small></div>
+                </div>
+                <a href="auction-details.html" class="btn-bid-auction">
+                  <i class="fas fa-gavel"></i> شارك بالمزاد
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. بلاستيك HDPE (براميل وعبوات) -->
+          <div class="product-card">
+            <div class="product-icon-wrap">
+              <i class="fas fa-prescription-bottle"></i>
+            </div>
+            <div class="product-card-body">
+              <span class="prod-category-tag">بلاستيك</span>
+              <h4 class="prod-title">بلاستيك HDPE (براميل وعبوات)</h4>
+              <div class="prod-spec-row">
+                <span>الكمية المتاحة</span>
+                <strong>3.2 طن</strong>
+              </div>
+              <div class="prod-spec-row">
+                <span>الحالة</span>
+                <strong>مفروز</strong>
+              </div>
+              <div class="prod-price-action-row">
+                <div class="prod-price">950 <small>ر.س / طن</small></div>
+                <button class="btn-add-cart" onclick="alert('تمت إضافة بلاستيك HDPE إلى السلة')">
+                  <i class="fas fa-cart-plus"></i> أضف للسلة
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. منسوجات وملابس مستعملة -->
+          <div class="product-card">
+            <div class="product-icon-wrap">
+              <i class="fas fa-shirt"></i>
+            </div>
+            <div class="product-card-body">
+              <span class="prod-category-tag">منسوجات</span>
+              <h4 class="prod-title">منسوجات وملابس مستعملة</h4>
+              <div class="prod-spec-row">
+                <span>الكمية المتاحة</span>
+                <strong>2 طن</strong>
+              </div>
+              <div class="prod-spec-row">
+                <span>الحالة</span>
+                <strong>غير مفروز</strong>
+              </div>
+              <div class="prod-price-action-row">
+                <div class="prod-price">700 <small>ر.س / طن</small></div>
+                <button class="btn-add-cart" onclick="alert('تمت إضافة منسوجات وملابس إلى السلة')">
+                  <i class="fas fa-cart-plus"></i> أضف للسلة
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. معادن مختلطة (دفعة كبيرة) - مزاد -->
+          <div class="product-card" style="border-color: #fbd38d;">
+            <span class="product-badge-auction">مزاد</span>
+            <div class="product-icon-wrap">
+              <i class="fas fa-cubes-stacked"></i>
+            </div>
+            <div class="product-card-body">
+              <span class="prod-category-tag">معادن</span>
+              <h4 class="prod-title">معادن مختلطة (دفعة كبيرة)</h4>
+              <div class="prod-spec-row">
+                <span>الكمية المتاحة</span>
+                <strong>12 طن</strong>
+              </div>
+              <div class="prod-spec-row">
+                <span>ينتهي المزاد خلال</span>
+                <strong style="color: #b45309;">يوم واحد</strong>
+              </div>
+              <div class="prod-price-action-row">
+                <div>
+                  <div style="font-size: 0.72rem; color: #799081;">أعلى مزايدة</div>
+                  <div class="prod-price">64,200 <small>ر.س</small></div>
+                </div>
+                <a href="auction-details.html" class="btn-bid-auction">
+                  <i class="fas fa-gavel"></i> شارك بالمزاد
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. ألمنيوم علب مكبوس -->
+          <div class="product-card">
+            <div class="product-icon-wrap">
+              <i class="fas fa-cube"></i>
+            </div>
+            <div class="product-card-body">
+              <span class="prod-category-tag">معادن</span>
+              <h4 class="prod-title">ألمنيوم علب مكبوس</h4>
+              <div class="prod-spec-row">
+                <span>الكمية المتاحة</span>
+                <strong>1.4 طن</strong>
+              </div>
+              <div class="prod-spec-row">
+                <span>الحالة</span>
+                <strong>مفروز ومكبوس</strong>
+              </div>
+              <div class="prod-price-action-row">
+                <div class="prod-price">5,200 <small>ر.س / طن</small></div>
+                <button class="btn-add-cart" onclick="alert('تمت إضافة ألمنيوم علب مكبوس إلى السلة')">
+                  <i class="fas fa-cart-plus"></i> أضف للسلة
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. إطارات سيارات مستعملة -->
+          <div class="product-card">
+            <div class="product-icon-wrap">
+              <i class="fas fa-circle-notch"></i>
+            </div>
+            <div class="product-card-body">
+              <span class="prod-category-tag">إطارات</span>
+              <h4 class="prod-title">إطارات سيارات مستعملة</h4>
+              <div class="prod-spec-row">
+                <span>الكمية المتاحة</span>
+                <strong>600 قطعة</strong>
+              </div>
+              <div class="prod-spec-row">
+                <span>الحالة</span>
+                <strong>غير مفروز</strong>
+              </div>
+              <div class="prod-price-action-row">
+                <div class="prod-price">12 <small>ر.س / قطعة</small></div>
+                <button class="btn-add-cart" onclick="alert('تمت إضافة إطارات سيارات إلى السلة')">
+                  <i class="fas fa-cart-plus"></i> أضف للسلة
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. بطاريات رصاصية مستعملة - طلب سعر -->
+          <div class="product-card">
+            <div class="product-icon-wrap">
+              <i class="fas fa-car-battery"></i>
+            </div>
+            <div class="product-card-body">
+              <span class="prod-category-tag">بطاريات</span>
+              <h4 class="prod-title">بطاريات رصاصية مستعملة</h4>
+              <div class="prod-spec-row">
+                <span>الكمية المتاحة</span>
+                <strong>2.5 طن</strong>
+              </div>
+              <div class="prod-spec-row">
+                <span>الحالة</span>
+                <strong>مفروز</strong>
+              </div>
+              <div class="prod-price-action-row">
+                <div>
+                  <div style="font-size: 0.72rem; color: #799081;">السعر</div>
+                  <div style="font-size: 0.95rem; font-weight: 800; color: #173822;">عند الطلب</div>
+                </div>
+                <button class="btn-rfq" onclick="alert('تم إرسال طلب عرض السعر للمورد')">
+                  <i class="fas fa-envelope-open-text"></i> اطلب عرض سعر
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- زر عرض المزيد -->
+          <button class="btn-load-more" onclick="alert('جاري تحميل المزيد من الموارد المتاحة...')">
+            عرض المزيد
+          </button>
+        </div>
+
+        <div style="text-align: center; font-size: 0.8rem; color: #9cb1a3; margin-top: 1.5rem;">
+          الأسعار والكميات المعروضة تجريبية لأغراض التصميم.
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- الفوتر الموحد -->
+  <footer class="site-footer-clean">
+    <div class="container footer-copyright">
+      جميع الحقوق محفوظة © منصة قيمة للاقتصاد الدائري في المملكة 2026
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

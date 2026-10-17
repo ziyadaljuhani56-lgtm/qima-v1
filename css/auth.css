@@ -419,3 +419,15 @@
     display: none;
   }
 }
+
+@media (max-width: 600px) {
+  .auth-form-side {
+    padding: 1.5rem 1rem;
+  }
+  .account-type-grid {
+    grid-template-columns: 1fr;
+  }
+  .form-row-2col {
+    grid-template-columns: 1fr;
+  }
+}

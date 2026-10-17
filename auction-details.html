@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>دفعة كرتون مموّج مكبوس — 40 طن | مزادات قيمة</title>
+  <meta name="description" content="مزاد مباشر: دفعة كرتون مموج مكبوس 40 طن من شركة تصنيع وتغليف في منصة قيمة.">
+  <link rel="icon" type="image/png" href="images/logo.png">
+
+  <!-- خط Cairo الرسمي -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .auction-page-body {
+      background-color: #f7faf8;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* مسار التنقل (Breadcrumbs) */
+    .auction-breadcrumbs {
+      padding: 1.25rem 0;
+      font-size: 0.85rem;
+      color: #63776b;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .auction-breadcrumbs a {
+      color: #407b4f;
+      font-weight: 700;
+    }
+
+    /* تخطيط الصفحة المنقسم: يمين للمنتج والمواصفات ويسار لكاونتر المزايدة */
+    .auction-details-grid {
+      display: grid;
+      grid-template-columns: 1.8fr 1.2fr;
+      gap: 2rem;
+      margin-bottom: 3.5rem;
+    }
+
+    /* كرت تفاصيل المزاد الأيمن */
+    .auction-main-card {
+      background: #ffffff;
+      border: 1px solid #e2ebe4;
+      border-radius: 14px;
+      overflow: hidden;
+      padding: 1.8rem;
+    }
+
+    /* معرض الصور */
+    .auction-gallery {
+      margin-bottom: 1.8rem;
+    }
+
+    .main-gallery-img-wrap {
+      position: relative;
+      height: 340px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #eef3ef;
+      margin-bottom: 0.75rem;
+    }
+
+    .main-gallery-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .auction-badge-overlay {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(4px);
+      padding: 0.35rem 0.85rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #173822;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .auction-badge-overlay .live-dot {
+      width: 8px;
+      height: 8px;
+      background: #16a34a;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.4; }
+      100% { opacity: 1; }
+    }
+
+    .lot-id-badge {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      background: rgba(23, 56, 34, 0.85);
+      color: #ffffff;
+      padding: 0.35rem 0.75rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .gallery-thumbnails-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.5rem;
+    }
+
+    .gallery-thumb {
+      height: 65px;
+      border-radius: 6px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: 0.75;
+      transition: all 0.2s;
+    }
+    .gallery-thumb.active, .gallery-thumb:hover {
+      border-color: #235836;
+      opacity: 1;
+    }
+    .gallery-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* بيانات العنوان والوصف */
+    .auction-meta-tags {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .meta-tag-pill {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: #3b5242;
+      background: #f0f5f2;
+      padding: 0.25rem 0.7rem;
+      border-radius: 4px;
+    }
+
+    .auction-title-h1 {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #173822;
+      margin-bottom: 0.75rem;
+    }
+
+    .auction-desc-p {
+      font-size: 0.95rem;
+      color: #526658;
+      line-height: 1.7;
+      margin-bottom: 1.8rem;
+    }
+
+    /* جدول مواصفات الدفعة */
+    .specs-section-title {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #173822;
+      padding-bottom: 0.6rem;
+      border-bottom: 1px solid #edf3ee;
+      margin-bottom: 1.2rem;
+    }
+
+    .specs-table-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .spec-lbl {
+      font-size: 0.78rem;
+      color: #799081;
+      font-weight: 700;
+    }
+
+    .spec-val {
+      font-size: 0.95rem;
+      color: #173822;
+      font-weight: 800;
+    }
+
+    /* سجل المزايدات التنافسية */
+    .bids-history-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .bids-history-header h3 {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: #173822;
+    }
+
+    .bids-count-note {
+      font-size: 0.8rem;
+      color: #799081;
+      font-weight: 700;
+    }
+
+    .bids-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: right;
+    }
+
+    .bids-table th {
+      padding: 0.6rem;
+      font-size: 0.78rem;
+      color: #8da496;
+      border-bottom: 1px solid #edf3ee;
+    }
+
+    .bids-table td {
+      padding: 0.8rem 0.6rem;
+      font-size: 0.88rem;
+      border-bottom: 1px solid #f4f8f5;
+      color: #2b4033;
+    }
+
+    .bidder-tag-highest {
+      background: #eaf3ed;
+      color: #166534;
+      font-size: 0.7rem;
+      font-weight: 800;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      margin-right: 0.4rem;
+    }
+
+    /* كرت المزايدة المباشرة (الجانب الأيسر) */
+    .bidding-box-card {
+      background: #ffffff;
+      border: 1px solid #e2ebe4;
+      border-radius: 14px;
+      padding: 1.8rem;
+      height: fit-content;
+      position: sticky;
+      top: 100px;
+    }
+
+    .countdown-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .countdown-header .lbl {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #63776b;
+    }
+
+    .live-badge-sm {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: #f0fdf4;
+      color: #15803d;
+      font-size: 0.75rem;
+      font-weight: 800;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      border: 1px solid #bbf7d0;
+    }
+    .live-badge-sm .dot {
+      width: 6px;
+      height: 6px;
+      background: #16a34a;
+      border-radius: 50%;
+    }
+
+    /* مربعات العد التنازلي */
+    .countdown-boxes-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .time-unit-box {
+      background: #173822;
+      color: #ffffff;
+      border-radius: 8px;
+      padding: 0.75rem 0.4rem;
+      text-align: center;
+    }
+
+    .time-unit-num {
+      font-size: 1.7rem;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 0.2rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .time-unit-lbl {
+      font-size: 0.7rem;
+      color: #a4cca9;
+      font-weight: 700;
+    }
+
+    /* سعر المزايدة الحالي */
+    .current-highest-bid {
+      text-align: center;
+      margin-bottom: 1.8rem;
+      padding-bottom: 1.4rem;
+      border-bottom: 1px solid #edf3ee;
+    }
+
+    .current-highest-bid .sub-lbl {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #63776b;
+      margin-bottom: 0.3rem;
+    }
+
+    .current-highest-bid .val {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #173822;
+      line-height: 1;
+    }
+    .current-highest-bid .val span {
+      font-size: 1.1rem;
+      color: #63776b;
+      font-weight: 700;
+    }
+
+    /* إحصائيات المزاد المصغرة */
+    .auction-meta-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin-bottom: 1.8rem;
+      font-size: 0.85rem;
+    }
+
+    .auction-meta-row {
+      display: flex;
+      justify-content: space-between;
+      color: #63776b;
+    }
+    .auction-meta-row strong {
+      color: #173822;
+    }
+
+    /* حقل إدخال مبلغ المزايدة */
+    .bid-input-group {
+      margin-bottom: 1rem;
+    }
+
+    .bid-input-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #173822;
+      margin-bottom: 0.4rem;
+    }
+
+    .bid-input-wrap {
+      position: relative;
+    }
+
+    .bid-input-wrap input {
+      width: 100%;
+      padding: 0.85rem 1.2rem;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: #173822;
+      border: 2px solid #235836;
+      border-radius: 8px;
+      font-family: inherit;
+      outline: none;
+    }
+
+    .quick-bid-pills {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+    }
+
+    .quick-bid-btn {
+      background: #f0f5f2;
+      border: 1px solid #dce8df;
+      color: #173822;
+      padding: 0.45rem;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    .quick-bid-btn:hover {
+      background: #e2ede5;
+    }
+
+    .btn-submit-bid {
+      width: 100%;
+      background: #235836;
+      color: #ffffff;
+      padding: 0.95rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      font-weight: 900;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 1.25rem;
+      box-shadow: 0 4px 14px rgba(35, 88, 54, 0.25);
+      transition: all 0.2s;
+    }
+    .btn-submit-bid:hover {
+      background: #194027;
+      transform: translateY(-1px);
+    }
+
+    .btn-watch-auction {
+      width: 100%;
+      background: #ffffff;
+      color: #3b5242;
+      border: 1px solid #ccdcd1;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 800;
+      font-family: inherit;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 0.65rem;
+      transition: all 0.2s;
+    }
+    .btn-watch-auction:hover {
+      background: #f7faf8;
+    }
+
+    .auction-legal-note {
+      margin-top: 1rem;
+      font-size: 0.74rem;
+      color: #799081;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* قسم: مزادات أخرى جارية أسفل العرض */
+    .other-auctions-box {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #edf3ee;
+    }
+
+    .other-auctions-box .head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .other-auctions-box .head h4 {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #173822;
+    }
+
+    .other-auctions-box .head a {
+      font-size: 0.8rem;
+      color: #235836;
+      font-weight: 700;
+    }
+
+    .other-auction-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0;
+      border-bottom: 1px solid #f4f8f5;
+    }
+
+    .other-auction-info {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .other-auction-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      background: #eef5f0;
+      color: #235836;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+    }
+
+    .other-auction-title {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #173822;
+    }
+
+    .other-auction-sub {
+      font-size: 0.72rem;
+      color: #799081;
+    }
+
+    .other-auction-price {
+      font-size: 0.88rem;
+      font-weight: 900;
+      color: #173822;
+      text-align: left;
+    }
+  </style>
+</head>
+<body class="auction-page-body">
+
+  <!-- الهيدر الموحد -->
+  <header class="site-header">
+    <div class="container nav-wrapper">
+      <div class="nav-actions">
+        <a href="register.html" class="btn-green-pill">
+          انضم للمنصة <i class="fas fa-arrow-left"></i>
+        </a>
+        <a href="login.html" class="contact-nav-link" style="margin-left: 0.5rem;">
+          <i class="far fa-user-circle"></i> تسجيل الدخول
+        </a>
+        <div style="position: relative; display: inline-flex; align-items: center; margin-right: 0.75rem;">
+          <i class="fas fa-shopping-basket" style="font-size: 1.25rem; color: #235836; cursor: pointer;"></i>
+          <span style="position: absolute; top: -6px; right: -8px; background: #235836; color: #fff; font-size: 0.65rem; border-radius: 50%; width: 17px; height: 17px; display: flex; align-items: center; justify-content: center; font-weight: 800;">2</span>
+        </div>
+        <button class="mobile-menu-toggle" aria-label="القائمة"><i class="fas fa-bars"></i></button>
+      </div>
+
+      <nav class="nav-menu">
+        <a href="index.html#impact" class="nav-link">الأثر والاستدامة</a>
+        <a href="auction-details.html" class="nav-link active">المزادات</a>
+        <a href="marketplace.html" class="nav-link">سوق الموارد</a>
+        <a href="index.html#how-it-works" class="nav-link">كيف تعمل المنصة</a>
+        <a href="index.html#about" class="nav-link">عن قيمة</a>
+        <a href="index.html" class="nav-link">الرئيسية</a>
+      </nav>
+
+      <a href="index.html" class="logo-area">
+        <div class="logo-text-wrap">
+          <h1>قيمة</h1>
+          <span>كل مورد.. له قيمة</span>
+        </div>
+        <img src="images/logo.png" alt="شعار منصة قيمة" class="logo-img-tag">
+      </a>
+    </div>
+  </header>
+
+  <!-- مساحة المحتوى -->
+  <main class="container" style="flex-grow: 1;">
+    
+    <!-- مسار الصفحة -->
+    <div class="auction-breadcrumbs">
+      <a href="marketplace.html">سوق الموارد</a>
+      <i class="fas fa-chevron-left" style="font-size: 0.65rem;"></i>
+      <a href="marketplace.html">المزادات</a>
+      <i class="fas fa-chevron-left" style="font-size: 0.65rem;"></i>
+      <span>دفعة كرتون مموّج مكبوس — 40 طن</span>
+    </div>
+
+    <!-- شبكة تفاصيل المزاد -->
+    <div class="auction-details-grid">
+      
+      <!-- الكرت الأيمن: المعرض والمواصفات وسجل المزايدات -->
+      <section class="auction-main-card">
+        
+        <!-- معرض الصور المباشر -->
+        <div class="auction-gallery">
+          <div class="main-gallery-img-wrap">
+            <img src="images/paper.jpg" alt="دفعة كرتون مموج مكبوس 40 طن" class="main-gallery-img" id="mainAuctionImg">
+            <div class="auction-badge-overlay">
+              <span class="live-dot"></span> مزاد مباشر
+            </div>
+            <div class="lot-id-badge">LOT-2026-018</div>
+          </div>
+
+          <!-- الصور المصغرة -->
+          <div class="gallery-thumbnails-row">
+            <div class="gallery-thumb active" onclick="changeImage('images/paper.jpg', this)">
+              <img src="images/paper.jpg" alt="صورة 1">
+            </div>
+            <div class="gallery-thumb" onclick="changeImage('images/hero.jpg', this)">
+              <img src="images/hero.jpg" alt="صورة 2">
+            </div>
+            <div class="gallery-thumb" onclick="changeImage('images/plastic.jpg', this)">
+              <img src="images/plastic.jpg" alt="صورة 3">
+            </div>
+            <div class="gallery-thumb" onclick="changeImage('images/textiles.jpg', this)">
+              <img src="images/textiles.jpg" alt="صورة 4">
+            </div>
+            <div class="gallery-thumb" onclick="changeImage('images/paper.jpg', this)">
+              <img src="images/paper.jpg" alt="صورة 5">
+            </div>
+          </div>
+        </div>
+
+        <!-- الوسوم والعنوان -->
+        <div class="auction-meta-tags">
+          <span class="meta-tag-pill">كرتون وورق</span>
+          <span class="meta-tag-pill">دفعة ضخمة من شركة</span>
+        </div>
+
+        <h1 class="auction-title-h1">دفعة كرتون مموّج مكبوس — 40 طن</h1>
+
+        <p class="auction-desc-p">
+          دفعة كبيرة من الكرتون المموّج المفروز والمكبوس جُمعت من إحدى الشركات، وتُعرض للمزايدة كاملةً. قيّمها فريق قيمة قبل العرض، وتتولى المنصة التنسيق مع الشركاء اللوجستيين لنقلها بعد الترسية.
+        </p>
+
+        <!-- مواصفات الدفعة (مطابقة لـ Page 6) -->
+        <h3 class="specs-section-title">مواصفات الدفعة</h3>
+
+        <div class="specs-table-grid">
+          <div class="spec-item">
+            <span class="spec-lbl">رقم الدفعة</span>
+            <span class="spec-val">LOT-2026-018</span>
+          </div>
+
+          <div class="spec-item">
+            <span class="spec-lbl">نوع المورد</span>
+            <span class="spec-val">كرتون مموّج</span>
+          </div>
+
+          <div class="spec-item">
+            <span class="spec-lbl">الكمية الإجمالية</span>
+            <span class="spec-val">40 طن</span>
+          </div>
+
+          <div class="spec-item">
+            <span class="spec-lbl">الحالة</span>
+            <span class="spec-val">مفروز ومكبوس</span>
+          </div>
+
+          <div class="spec-item">
+            <span class="spec-lbl">مصدر الدفعة</span>
+            <span class="spec-val">شركة تصنيع وتغليف</span>
+          </div>
+
+          <div class="spec-item">
+            <span class="spec-lbl">التقييم</span>
+            <span class="spec-val" style="color: #235836;">تم من فريق قيمة</span>
+          </div>
+
+          <div class="spec-item">
+            <span class="spec-lbl">النقل</span>
+            <span class="spec-val">عبر الشركاء اللوجستيين</span>
+          </div>
+
+          <div class="spec-item">
+            <span class="spec-lbl">الاستلام</span>
+            <span class="spec-val">بعد الترسية</span>
+          </div>
+        </div>
+
+        <!-- سجل المزايدات (17 مزايدة) -->
+        <div class="bids-history-header">
+          <h3>سجل المزايدات</h3>
+          <span class="bids-count-note">17 مزايدة</span>
+        </div>
+
+        <table class="bids-table">
+          <thead>
+            <tr>
+              <th>المزايد</th>
+              <th>المبلغ</th>
+              <th>الوقت</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <strong>مزايد #••42</strong>
+                <span class="bidder-tag-highest">الأعلى</span>
+              </td>
+              <td><strong style="color: #173822; font-size: 0.95rem;">46,500 ر.س</strong></td>
+              <td style="color: #799081;">قبل 4 دقائق</td>
+            </tr>
+            <tr>
+              <td>مزايد #••17</td>
+              <td>46,000 ر.س</td>
+              <td style="color: #799081;">قبل 11 دقيقة</td>
+            </tr>
+            <tr>
+              <td>مزايد #••42</td>
+              <td>45,000 ر.س</td>
+              <td style="color: #799081;">قبل 38 دقيقة</td>
+            </tr>
+            <tr>
+              <td>مزايد #••08</td>
+              <td>44,500 ر.س</td>
+              <td style="color: #799081;">قبل ساعة</td>
+            </tr>
+            <tr>
+              <td>مزايد #••31</td>
+              <td>43,000 ر.س</td>
+              <td style="color: #799081;">قبل 3 ساعات</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </section>
+
+      <!-- الكرت الأيسر: عداد المزاد وتقديم المزايدة ومزادات أخرى -->
+      <aside class="bidding-box-card">
+        <div class="countdown-header">
+          <span class="lbl">ينتهي المزاد بعد</span>
+          <span class="live-badge-sm"><span class="dot"></span> مزاد مباشر</span>
+        </div>
+
+        <!-- العد التنازلي التفاعلي -->
+        <div class="countdown-boxes-row">
+          <div class="time-unit-box">
+            <div class="time-unit-num" id="cdDays">02</div>
+            <div class="time-unit-lbl">يوم</div>
+          </div>
+          <div class="time-unit-box">
+            <div class="time-unit-num" id="cdHours">05</div>
+            <div class="time-unit-lbl">ساعة</div>
+          </div>
+          <div class="time-unit-box">
+            <div class="time-unit-num" id="cdMinutes">23</div>
+            <div class="time-unit-lbl">دقيقة</div>
+          </div>
+          <div class="time-unit-box">
+            <div class="time-unit-num" id="cdSeconds">12</div>
+            <div class="time-unit-lbl">ثانية</div>
+          </div>
+        </div>
+
+        <!-- أعلى مزايدة حالياً -->
+        <div class="current-highest-bid">
+          <div class="sub-lbl">أعلى مزايدة حالياً</div>
+          <div class="val" id="highestBidDisplay">46,500 <span>ر.س</span></div>
+        </div>
+
+        <!-- تفاصيل المزاد -->
+        <div class="auction-meta-list">
+          <div class="auction-meta-row">
+            <span>سعر البداية</span>
+            <strong>38,000 ر.س</strong>
+          </div>
+          <div class="auction-meta-row">
+            <span>عدد المزايدات</span>
+            <strong id="bidsCountDisplay">17</strong>
+          </div>
+          <div class="auction-meta-row">
+            <span>الحد الأدنى للزيادة</span>
+            <strong>500 ر.س</strong>
+          </div>
+        </div>
+
+        <!-- إدخال المزايدة -->
+        <div class="bid-input-group">
+          <label>مبلغ مزايدتك (ر.س)</label>
+          <div class="bid-input-wrap">
+            <input type="number" id="bidInput" value="47000" min="47000" step="500">
+          </div>
+          <div style="font-size: 0.75rem; color: #799081; margin-top: 0.35rem;">
+            الحد الأدنى للمزايدة التالية: 47,000 ر.س
+          </div>
+
+          <div class="quick-bid-pills">
+            <button type="button" class="quick-bid-btn" onclick="setBidAmount(47000)">47,000</button>
+            <button type="button" class="quick-bid-btn" onclick="setBidAmount(47500)">47,500</button>
+            <button type="button" class="quick-bid-btn" onclick="setBidAmount(49000)">49,000</button>
+          </div>
+        </div>
+
+        <button class="btn-submit-bid" onclick="submitBid()">
+          <i class="fas fa-gavel"></i> قدّم مزايدتك
+        </button>
+
+        <button class="btn-watch-auction" onclick="alert('تمت إضافة هذا المزاد إلى قائمة مراقبتك.')">
+          <i class="far fa-bookmark"></i> أضف إلى المراقبة
+        </button>
+
+        <div class="auction-legal-note">
+          <i class="fas fa-shield-halved"></i> المزايدة ملزمة عند الترسية، وتتطلب حساب مشترٍ معتمد في المنصة.
+        </div>
+
+        <!-- مزادات أخرى جارية -->
+        <div class="other-auctions-box">
+          <div class="head">
+            <h4>مزادات أخرى جارية</h4>
+            <a href="marketplace.html">عرض الكل</a>
+          </div>
+
+          <div class="other-auction-row">
+            <div class="other-auction-info">
+              <div class="other-auction-icon"><i class="fas fa-bottle-water"></i></div>
+              <div>
+                <div class="other-auction-title">بلاستيك PET مفروز</div>
+                <div class="other-auction-sub">18 طن · ينتهي خلال 5 ساعات</div>
+              </div>
+            </div>
+            <div class="other-auction-price">19,800 <small>ر.س</small></div>
+          </div>
+
+          <div class="other-auction-row">
+            <div class="other-auction-info">
+              <div class="other-auction-icon"><i class="fas fa-cubes-stacked"></i></div>
+              <div>
+                <div class="other-auction-title">معادن مختلطة</div>
+                <div class="other-auction-sub">12 طن · ينتهي خلال يوم</div>
+              </div>
+            </div>
+            <div class="other-auction-price">64,200 <small>ر.س</small></div>
+          </div>
+
+          <div class="other-auction-row">
+            <div class="other-auction-info">
+              <div class="other-auction-icon"><i class="fas fa-shirt"></i></div>
+              <div>
+                <div class="other-auction-title">منسوجات مستعملة</div>
+                <div class="other-auction-sub">9 طن · ينتهي خلال 3 أيام</div>
+              </div>
+            </div>
+            <div class="other-auction-price">5,900 <small>ر.س</small></div>
+          </div>
+        </div>
+
+      </aside>
+
+    </div>
+
+    <div style="text-align: center; font-size: 0.8rem; color: #9cb1a3; margin-bottom: 2.5rem;">
+      الأسعار والكميات وتفاصيل المزايدات المعروضة تجريبية لأغراض التصميم.
+    </div>
+  </main>
+
+  <!-- الفوتر -->
+  <footer class="site-footer-clean">
+    <div class="container footer-copyright">
+      جميع الحقوق محفوظة © منصة قيمة للاقتصاد الدائري في المملكة 2026
+    </div>
+  </footer>
+
+  <script>
+    function changeImage(src, thumbElement) {
+      document.getElementById('mainAuctionImg').src = src;
+      document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+      thumbElement.classList.add('active');
+    }
+
+    function setBidAmount(amount) {
+      document.getElementById('bidInput').value = amount;
+    }
+
+    function submitBid() {
+      const val = parseInt(document.getElementById('bidInput').value);
+      if (val < 47000) {
+        alert('عذراً، الحد الأدنى للمزايدة القادمة هو 47,000 ر.س');
+        return;
+      }
+      alert('تم تقديم مزايدتك بنجاح بمبلغ ' + val.toLocaleString() + ' ر.س!\nأنت الآن صاحب أعلى مزايدة.');
+      document.getElementById('highestBidDisplay').innerHTML = val.toLocaleString() + ' <span>ر.س</span>';
+      document.getElementById('bidInput').value = val + 500;
+    }
+
+    // محاكاة العد التنازلي التفاعلي
+    let seconds = 12;
+    setInterval(() => {
+      seconds--;
+      if (seconds < 0) seconds = 59;
+      document.getElementById('cdSeconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+    }, 1000);
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>
